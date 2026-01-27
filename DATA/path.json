@@ -1,0 +1,18 @@
+{
+    "sauvegarde": "DATA/sauvegarde.json",
+    "police": "DATA/police.json",
+    "memoir": "DATA/memoir.json",
+    "mapping": {
+        "mapping_1": "SECURITER/mapping_1.json",
+        "mapping_2": "SECURITER/mapping_2.json",
+        "mapping_3": "SECURITER/mapping_3.json"
+    },
+    "language": {
+        "voc": "MATIERE/LANGUE/langue.json",
+        "verbs": "MATIERE/LANGUE/langue_verb.json"
+    },
+    "scnat": "MATIERE/SCNAT/scnat.json", 
+    "geo": "MATIERE/GEO/geo.json",
+    "histo": "MATIERE/HISTO/histo.json"
+
+}

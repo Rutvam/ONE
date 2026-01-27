@@ -59,11 +59,11 @@ class CI:
 
         # update sauvegarde lazily to avoid circular imports
         if exercise_score:
-            import CORE.link as link
+            import link as link
             link.get_sauvegarde().ajouter_xp(player, exercise.__class__.__name__, 50, True)
 
         return exercise_score, xp, streak
-    
+
     class INPUT:
         def quit(self, answer):
             if answer.lower() in ["exit", "quitter", "quit", "q", "e"]:

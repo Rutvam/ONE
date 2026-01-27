@@ -10,7 +10,7 @@ class ScNat(Exercise):
         """Main menu for natural sciences exercises"""
         elements, atomic_numbers = DataLoader.load_data("ScNat")
         # importer localement link pour récupérer le player courant (évite boucle d'import)
-        import CORE.link as link
+        import link as link
         player = link.player
 
         stats = {
@@ -37,7 +37,7 @@ class ScNat(Exercise):
 
     def _exercise_element(self, elements):
         """Chemical elements exercise"""
-        import CORE.link as link
+        import link as link
         player = link.player
         level = player.get("ScNat", {}).get("Level_ScNat", 1)
         element_subset = self.limit_elements(elements, level)
@@ -53,7 +53,7 @@ class ScNat(Exercise):
 
     def _exercise_atomic_number(self, atomic_numbers):
         """Atomic number exercise"""
-        import CORE.link as link
+        import link as link
         player = link.player
         level = player.get("ScNat", {}).get("Level_ScNat", 1)
         element_subset = self.limit_elements(atomic_numbers, level)

@@ -3,11 +3,11 @@ import os
 from CORE.ci import CI
 from CORE.dataloader import DataLoader
 from CORE.exercise import Exercise
-from CORE.funk import sauvegarde, controller_int
-from CORE.player import Player
-from CORE.button import Button
-from CORE.langue import langue
-from CORE.couleur import Couleur
+from CORE.CLASSE_SECONDAIRE.sauvegarde import sauvegarde, controller_int
+from CORE.CLASSE_SECONDAIRE.player import Player
+from CORE.CLASSE_SECONDAIRE.button import Button
+from CORE.CLASSE_SECONDAIRE.langue import langue
+from CORE.CLASSE_SECONDAIRE.couleur import Couleur
 from MATIERE.LANGUE.langue import Language
 from MATIERE.GEO.geo import Geo
 from MATIERE.MATH.math import Math

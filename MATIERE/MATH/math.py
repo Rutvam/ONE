@@ -39,6 +39,8 @@ def compute_op(a, b, op):
             return a // b if a % b == 0 else a / b
         except Exception:
             return 0
+    if op == "#":
+        return a ** b
     raise ValueError(f"Unknown operator: {op}")
 
 class Math(Exercise):
@@ -47,7 +49,7 @@ class Math(Exercise):
     def menu_math(self, choices, question_num):
         """Main menu for math exercises"""
         math_base = DataLoader.load_data("Math")
-        import CORE.link as link
+        import link as link
         player = link.player
 
         stats = {
@@ -65,10 +67,10 @@ class Math(Exercise):
 
         if choice == "base":
             try:
-                question, correct_answer = self.math_base()
+                question, correct_answer = self.math_base(i=["+", "-", "*", "/", "**"])
             except Exception as e:
                 print(f"Error executing math_base: {e}")
-                question, correct_answer = "Default question: 1+1 = ?", 2
+                question, correct_answer = "Default question: 1 + 1 = ?", 2
             answer = input(question).strip()
             self.check_answer(answer, correct_answer)
 
@@ -82,10 +84,9 @@ class Math(Exercise):
         b = random.randint(min, max)
         return a, b
 
-    def math_base(self):
-        i = ["addition", "soustraction", "multiplication", "division"]
+    def math_base(self, i):
         choix = random.choice(i)
-        if choix == "addition":
+        if choix == "+":
             op = "+"
             a, b = self.choisir_un_nombre(-100, 100)
             reponse_correct = compute_op(a, b, op)
@@ -93,7 +94,7 @@ class Math(Exercise):
                 a = "+" + str(a)
             if b > 0:
                 b = "+" + str(b)
-        elif choix == "soustraction":
+        elif choix == "-":
             op = "-"
             a, b = self.choisir_un_nombre(-100, 100)
             reponse_correct = compute_op(a, b, op)
@@ -101,7 +102,7 @@ class Math(Exercise):
                 a = "+" + str(a)
             if b > 0:
                 b = "+" + str(b)
-        elif choix == "multiplication":
+        elif choix == "*":
             op = "*"
             a, b = self.choisir_un_nombre(-12, 12)
             reponse_correct = compute_op(a, b, op)
@@ -109,7 +110,7 @@ class Math(Exercise):
                 a = "+" + str(a)
             if b > 0:
                 b = "+" + str(b)
-        elif choix == "division":
+        elif choix == "/":
             op = "/"
             # choisir un diviseur non nul et un quotient, puis fixer a = quotient * b
             b = 0
@@ -122,9 +123,20 @@ class Math(Exercise):
                 a = "+" + str(a)
             if b > 0:
                 b = "+" + str(b)
-        question = f"Calcul\n ({a}) {op} ({b}) = ?\n>"
+        elif choix == "**":
+            a, _ = self.choisir_un_nombre(-20, +20)
+            _, b = self.choisir_un_nombre(-3, +3)
+            op = "#"
+            if a > 0:
+                a = "+" + str(a)
+            if b > 0:
+                b = "+" + str(b)
+        if choix == "**":
+            question = f"Calcul\n {a}^({b}) = ?\n>>"
+        question = f"Calcul\n ({a}) {op} ({b}) = ?\n>>"
         try:
             return question, int(reponse_correct)
         except Exception:
             return question, reponse_correct
-    
+
+

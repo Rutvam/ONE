@@ -7,7 +7,7 @@ class Geo(Exercise):
     def menu_geo(self, choices, question_num):
         """Main menu for geography exercises"""
         geo_data = DataLoader.load_data("Geo")
-        import CORE.link as link
+        import link as link
         player = link.player
 
         stats = {

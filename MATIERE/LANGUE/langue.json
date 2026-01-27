@@ -1,0 +1,18 @@
+{
+    "voc": [
+        "the book",
+        "the notebook"
+    ],
+    "francais_voc": {
+        "the book": {
+            "EN": "the book",
+            "FR": "le livre",
+            "DE": "der Buch"
+        },
+        "the notebook": {
+            "EN": "the notebook",
+            "FR": "le cahier",
+            "DE": "das Heft"
+        }
+    }
+}

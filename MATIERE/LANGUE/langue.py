@@ -1,5 +1,5 @@
 import random
-import CORE.link as link
+import link as link
 from CORE.exercise import Exercise
 from CORE.dataloader import DataLoader
 try:
@@ -12,7 +12,7 @@ except:
 class Language(Exercise):
     """French exercises"""
 
-    def menu_francais(self, choices, question_num):
+    def menu_langue(self, choices, question_num):
         """Main menu for exercises"""
         player = link.player
         if choices == "French":
@@ -21,7 +21,7 @@ class Language(Exercise):
                 'level': player.get('Francais', {}).get('Level_Francais', 1),
                 'exercises': player.get('Francais', {}).get('parties_jouees_Francais', 0)
             }
-            vocabulary, persons, agreement, verb_data = DataLoader.load_data("FR")
+            vocabulary, persons, agreement, verb_data = DataLoader.load_data("langue")
             self.display_header(question_num, "French", stats)
         elif choices == "German":
             stats = {
@@ -29,7 +29,7 @@ class Language(Exercise):
                 'level': player.get('Deutsch', {}).get('Level_Deutsch', 1),
                 'exercises': player.get('Deutsch', {}).get('parties_jouees_Deutsch', 0)
             }
-            vocabulary, persons, agreement, verb_data = DataLoader.load_data("DE")
+            vocabulary, persons, agreement, verb_data = DataLoader.load_data("langue")
             self.display_header(question_num, "German", stats)
         else:
             stats = {
@@ -37,7 +37,7 @@ class Language(Exercise):
                 'level': player.get('Anglais', {}).get('Level_Anglais', 1),
                 'exercises': player.get('Anglais', {}).get('parties_jouees_Anglais', 0)
             }
-            vocabulary, persons, agreement, verb_data = DataLoader.load_data("EN")
+            vocabulary, persons, agreement, verb_data = DataLoader.load_data("langue")
             self.display_header(question_num, "English", stats)
         
         if not choices:
@@ -47,7 +47,6 @@ class Language(Exercise):
         choice_ex = random.choice(choices_langue)
 
         if choice_ex == "Vocabulary":
-            # rentrer
             self._exercise_vocabulary(vocabulary, choices)
         elif choice_ex == "Conjugation":
             self._exercise_verbs(verb_data, persons)
