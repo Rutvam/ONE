@@ -1,9 +1,11 @@
 # ONE/
 - **main.py**
-    Coeur du programm ne travaille jamais seul. son coequipier est `ONE/link.py`
+    Coeur du programm ne travaille jamais seul. son coequipier est `ONE/link.py` et `ONE/main_def.py`
 - **calcule.c**
+    Un petit programe avec fonction de calcule.
 - **calcule.dll**
 - **link.py**
+    Existe pour eviter les boucle d'import.
 - **README.md**
 
 ## CORE/

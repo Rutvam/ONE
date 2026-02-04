@@ -9,7 +9,7 @@ use_c_lib = False
 lib = None
 try:
     import ctypes
-    lib_path = os.path.join(os.path.dirname(__file__), 'math.dll')
+    lib_path = os.path.join(os.path.dirname(__file__), 'calcule.dll')
     lib = ctypes.CDLL(lib_path)
     # Ne pas forcer d'argtypes ici car l'API C n'est pas garantie.
     use_c_lib = True
