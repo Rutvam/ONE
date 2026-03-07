@@ -395,3 +395,15 @@ def main_program(test, info = {}):
             else:
                 print("Invalid choice.")
                 input("Press ENTER to continue...")
+
+if __name__ == "__main__":
+    import sys
+    import json
+    if len(sys.argv) < 3:
+        print("Usage: python main_def.py <test> <info_json>")
+        sys.exit(1)
+    test_str = sys.argv[1]
+    info_json = sys.argv[2]
+    test = test_str.lower() == "true"
+    info = json.loads(info_json) if info_json else {}
+    main_program(test, info)

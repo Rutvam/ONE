@@ -1,0 +1,102 @@
+{
+    "players": {
+        "Test": {
+            "mot_de_passe": "12345",
+            "best_score": 0,
+            "Francais": {
+                "parties_jouees_Francais": 0,
+                "Level_Francais": 0,
+                "xp_Francais": 0,
+                "Max_xp_Francais": 1000
+            },
+            "Deutsch": {
+                "parties_jouees_Deutsch": 0,
+                "Level_Deutsch": 0,
+                "xp_Deutsch": 0,
+                "Max_xp_Deutsch": 1000
+            },
+            "ScNat": {
+                "parties_jouees_ScNat": 0,
+                "Level_ScNat": 0,
+                "xp_ScNat": 0,
+                "Max_xp_ScNat": 1000
+            },
+            "Anglais": {
+                "parties_jouees_Anglais": 0,
+                "Level_Anglais": 0,
+                "xp_Anglais": 0,
+                "Max_xp_Anglais": 1000
+            },
+            "Math": {
+                "parties_jouees_Math": 4,
+                "Level_Math": 0,
+                "xp_Math": 200,
+                "Max_xp_Math": 1000
+            },
+            "Geo": {
+                "parties_jouees_Geo": 0,
+                "Level_Geo": 0,
+                "xp_Geo": 0,
+                "Max_xp_Geo": 1000
+            },
+            "Histo": {
+                "parties_jouees_Histo": 0,
+                "Level_Histo": 0,
+                "xp_Histo": 0,
+                "Max_xp_Histo": 1000
+            },
+            "P": {
+                "langue": "EN"
+            }
+        },
+        "Rutvam55": {
+            "mot_de_passe": "ONE_2.0_ONE",
+            "best_score": 0,
+            "Francais": {
+                "parties_jouees_Francais": 0,
+                "Level_Francais": 0,
+                "xp_Francais": 0,
+                "Max_xp_Francais": 1000
+            },
+            "Deutsch": {
+                "parties_jouees_Deutsch": 0,
+                "Level_Deutsch": 0,
+                "xp_Deutsch": 0,
+                "Max_xp_Deutsch": 1000
+            },
+            "ScNat": {
+                "parties_jouees_ScNat": 2,
+                "Level_ScNat": 0,
+                "xp_ScNat": 100,
+                "Max_xp_ScNat": 1000
+            },
+            "Anglais": {
+                "parties_jouees_Anglais": 0,
+                "Level_Anglais": 0,
+                "xp_Anglais": 0,
+                "Max_xp_Anglais": 1000
+            },
+            "Math": {
+                "parties_jouees_Math": 3,
+                "Level_Math": 0,
+                "xp_Math": 150,
+                "Max_xp_Math": 1000
+            },
+            "Geo": {
+                "parties_jouees_Geo": 0,
+                "Level_Geo": 0,
+                "xp_Geo": 0,
+                "Max_xp_Geo": 1000
+            },
+            "Histo": {
+                "parties_jouees_Histo": 0,
+                "Level_Histo": 0,
+                "xp_Histo": 0,
+                "Max_xp_Histo": 1000
+            },
+            "P": {
+                "langue": "EN"
+            }
+        }
+    }
+}

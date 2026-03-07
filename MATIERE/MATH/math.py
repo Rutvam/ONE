@@ -9,22 +9,37 @@ use_c_lib = False
 lib = None
 try:
     import ctypes
+    # rechercher la DLL dans le dossier du module puis au niveau du projet
     lib_path = os.path.join(os.path.dirname(__file__), 'calcule.dll')
+    if not os.path.exists(lib_path):
+        # essayer le répertoire parent (workspace root)
+        lib_path = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(__file__))), 'calcule.dll')
     lib = ctypes.CDLL(lib_path)
-    # Ne pas forcer d'argtypes ici car l'API C n'est pas garantie.
-    use_c_lib = True
-except Exception:
+    # vérifier que la fonction d'opérateur est exportée
+    if hasattr(lib, 'opperateur'):
+        lib.opperateur.argtypes = [ctypes.c_int, ctypes.c_int, ctypes.c_char]
+        lib.opperateur.restype = ctypes.c_double
+        use_c_lib = True
+    else:
+        # la DLL ne propose pas d'opérateur, on utilise Python
+        print("[Math] DLL 'opperateur' introuvable - utilisation Python.")
+        use_c_lib = False
+except Exception as e:
+    # charger la bibliothèque a échoué, on reste en mode Python
     use_c_lib = False
+    # afficher un message pour aider au débogage
+    print(f"Warning: impossible de charger la librairie C ({e}), utilisation de Python uniquement.")
 
 def compute_op(a, b, op):
     if use_c_lib and lib is not None:
         try:
-            # Si la librairie C expose une fonction utilitaire, essayer
-            # d'appeler `opperateur` avec deux entiers et renvoyer le
-            # résultat. En cas d'échec, retomber sur l'implémentation
-            # Python.
-            return lib.opperateur(int(a), int(b))
-        except Exception:
+            import ctypes
+            # appeller la fonction C avec l'opérateur comme caractère
+            return lib.opperateur(int(a), int(b), ctypes.c_char(op.encode('utf-8')))
+        except Exception as e:
+            # en cas d'erreur on affiche et on continue avec Python
+            print(f"[Math] Erreur appel DLL : {e}")
+            # laisser tomber sur l'implémentation native ci-dessous
             pass
 
     if op == "+":
@@ -131,9 +146,9 @@ class Math(Exercise):
                 a = "+" + str(a)
             if b > 0:
                 b = "+" + str(b)
-        if choix == "**":
             question = f"Calcul\n {a}^({b}) = ?\n>>"
-        question = f"Calcul\n ({a}) {op} ({b}) = ?\n>>"
+        else:
+            question = f"Calcul\n ({a}) {op} ({b}) = ?\n>>"
         try:
             return question, int(reponse_correct)
         except Exception:

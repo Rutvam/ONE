@@ -2,10 +2,7 @@ import random
 import link as link
 from CORE.exercise import Exercise
 from CORE.dataloader import DataLoader
-try:
-    from main import choices_langue
-except:
-    print("ERROR: the import of choices langue from main.py")
+# pas d'import circulaire : les sous-choix de langue seront récupérés dynamiquement
 
 # player sera récupéré dynamiquement depuis CORE.link pour éviter import circulaire
 
@@ -41,9 +38,14 @@ class Language(Exercise):
             self.display_header(question_num, "English", stats)
         
         if not choices:
-            print(f"❌ No choices provided for {choices}.")
+            print(f"[Lang] Aucune langue sélectionnée.")
             return self.score, self.xp, self.streak
 
+        # récupérer les types d'exercice (vocabulaire / conjugaison) depuis les boutons
+        _, _, choices_langue, _, _, _, _ = link.get_buttons().collect()
+        if not choices_langue:
+            print("[Lang] Aucun type d'exercice de langue activé dans les parametres.")
+            return self.score, self.xp, self.streak
         choice_ex = random.choice(choices_langue)
 
         if choice_ex == "Vocabulary":
@@ -55,14 +57,14 @@ class Language(Exercise):
 
         return self.score, self.xp, self.streak
 
-    def _exercise_vocabulary(self, vocabulary, choises):
+    def _exercise_vocabulary(self, vocabulary, choices):
         """vocabulary exercise"""
         if not vocabulary:
             print("❌ No vocabulary data available.")
             return
 
         translation, word = random.choice(list(vocabulary.items()))
-        answer = input(f"How do you say '{word}' in {choises}?\n>> ").strip()
+        answer = input(f"How do you say '{word}' in {choices}?\n>> ").strip()
         
         self.check_answer(answer, translation)
 
