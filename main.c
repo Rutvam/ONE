@@ -28,6 +28,11 @@ int main(void) {
         /* on ne garde que la première lettre */
         if (answer[0] == 'y' || answer[0] == 'Y') {
             test = true;
+        } else if (answer[0] == 'n' || answer[0] == 'N') {
+            test = false;
+        } else {
+            printf("Réponse invalide. Utilisation du mode normal par défaut.\n");
+            test = false;
         }
     }
 

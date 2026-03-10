@@ -1,124 +1,119 @@
-# ONE — Assistant d'entraînement (v0.10.1)
+# ONE
 
-**ONE** est une application console éducative multi-matières écrite en Python. Ce projet propose des exercices en Français, Anglais, Deutsch, Math, Sciences Naturelles, Géographie et Histoire. Les progrès des joueurs sont sauvegardés dans un fichier JSON local (`DATA/sauvegarde.json`).
+ONE est une application éducative interactive développée en Python, conçue pour aider les utilisateurs à apprendre et à pratiquer diverses matières scolaires. Le projet intègre des modules pour les mathématiques, la géographie, l'histoire, les langues et les sciences naturelles, avec une architecture modulaire permettant l'extension facile.
 
-**But**: s'entraîner de façon ludique, suivre le XP et les niveaux par matière.
+## Structure et role de chaque fichier du Projet 
+Fichiers Racine
+- **main.c**
+    > Cœur du programme. Ne travaille jamais seul ; ses coéquipiers sont `link.py` et `main_def.py`.
+- **main.exe**
+    > Fichier executable (`.exe`) générée à patir de `main.exe`
+- **calcule.c**
+    > Un petit programme C avec des fonctions de calcul.
+- **calcule.dll**
+    > Bibliothèque dynamique générée à partir de `calcule.c`.
+- **link.py**
+    > Existe pour éviter les boucles d'import.
+- **main_def.py**
+    > Définitions principales utilisées par `main.py`.
+- **README.md**
+    > Ce fichier.
 
-**Version**: v0.10.1
+### CORE/
+🧠 Cerveau de l'application ONE.  
+Contient la logique centrale commune à toutes les matières.
+- **ci.py**
+    > Paramètres globaux, styles et fonctions utilitaires communes.
+- **dataloader.py**
+    > Gestion du chargement des données depuis `DATA/`.
+- **exercise.py**
+    > Classe centrale reliant `main.py` aux différentes matières situées dans `MATIERE/`.
 
----
+#### CLASSE_SECONDAIRE/
+Classes secondaires, stables ou peu utilisées. Conservées pour compatibilité, référence ou évolution future.
+- **button.py**
+    > Logique des boutons switch (ON/OFF). Sauvegarde également les boutons activés pour créer des quiz.
+- **couleur.py**
+    > Contient une fonction pouvant modifier la couleur et le style du texte en code ANSI.
+- **langue.py**
+    > Contient une fonction pouvant modifier la langue de tout le programme.
+- **player.py**
+    > Contient une classe Player.
+- **sauvegarde.py**
+    > Contient de nombreuses fonctions pour sauvegarder dans le fichier `DATA/sauvegarde.json`.
 
-**Prérequis**
+### DATA/
+Dossier où les progrès des joueurs sont sauvegardés, où l'IA sauvegarde ses données et où le code ANSI a été traduit.
+- **sauvegarde.json**
+    > Sauvegarde des progrès des utilisateurs.
+- **path.json**
+    > Chemins de fichiers.
+- **police.json**
+    > Configurations de style d'ecriture utiliser par `couleur.py`.
+- **memoir.json**
+    > Mémoire du vocabulaire d'`INLL`.
 
-- Windows (tests réalisés sous Windows)
-- Python 3.10 — 3.12 recommandé
-- Pip
+### KI/
+Dossier regroupant plusieurs fonctions d'intelligence artificielle. Encore en développement.
+- **ia.py**
+    > Module d'IA.
 
-Librairies Python nécessaires (minimum):
-- `pwinput` (pour la saisie sécurisée du mot de passe)
+### MATIERE/
+Dossier regroupant plusieurs sous-dossiers pour chaque matière.
+#### GEO/
+- **geo.json**
+    > Données géographiques.
+- **geo.py**
+    > Module pour la géographie.
 
-Installation rapide des dépendances (PowerShell) :
+#### HISTO/
+- **histo.py**
+    > Module pour l'histoire.
+- **histoire.json**
+    > Données historiques.
 
-```powershell
-python -m pip install --upgrade pip
-python -m pip install pwinput
-```
+#### LANGUE/
+- **langue_verb.json**
+    > Données sur les verbes.
+- **langue.json**
+    > Données linguistiques générales.
+- **langue.py**
+    > Module pour les langues.
 
-Remarque: le projet contient aussi des modules Kivy et des documents pédagogiques si tu veux créer une interface graphique — ces dépendances sont optionnelles.
+#### MATH/
+- **math.c**
+    > Implémentation en C pour les mathématiques.
+- **math.py**
+    > Module Python pour les mathématiques.
 
----
+#### SCNAT/
+- **scnat.json**
+    > Données sur les sciences naturelles.
+- **scnat.py**
+    > Module pour les sciences naturelles.
 
-**Lancer l'application**
+### SECURITER/
+Pas encore relié avec le programme.
+- **code.py**
+    > Module de sécurité.
+- **mapping_1.json**, **mapping_2.json**, **mapping_3.json**
+    > Fichiers de mapping pour la sécurité.
 
-Ouvrir PowerShell dans le dossier du projet (`ONE_Build`) puis :
+## Installation
 
-```powershell
-python .\main.py
-```
+1. Assurez-vous d'avoir Python installé (version 3.8 ou supérieure).
+2. Clonez ou téléchargez le projet dans un dossier.
+3. Créez un environnement virtuel : `python -m venv .venv`
+4. Activez l'environnement : `.venv\Scripts\activate` (Windows) ou `source .venv/bin/activate` (Linux/Mac).
+5. Installez les dépendances si nécessaire (vérifiez `requirements.txt` s'il existe).
 
-Suivre les instructions à l'écran pour créer un joueur, vous connecter et lancer des exercices.
+## Utilisation
 
----
+Lancez le programme principal avec `main.exe`. Suivez les instructions à l'écran pour naviguer dans les différentes matières et exercices.
 
-**Structure du dépôt (essentiel)**
+## Développement
 
-- `main.py` : point d'entrée console principale.
-- `CORE/` : code coeur (gestion des joueurs, exercices, sauvegarde, utilitaires).
-  - `funk.py` : gestion des sauvegardes (`sauvegarde` class), migration et utilitaires XP.
-  - `player.py` : classe `Player` (structure des statistiques).
-  - `link.py` : loader de données et classes d'exercices (Math, Francais, ...).
-  - `button.py` : gestion des boutons / sélection de matières.
-- `DATA/` : données JSON et fichier `sauvegarde.json`.
-- `KI/` : module IA (INLL) utilisé pour l'apprentissage adaptatif.
-- `MATIERE/` : fichiers de contenu (vocabulaires, questions...)
-- `EXPLICATION_SAUVEGARDE.md`, `KIVY_EXPLICATION_DETAILLEE.md` : documentation pédagogique.
+Le projet utilise une architecture modulaire. Pour ajouter une nouvelle matière, créez un dossier dans `MATIERE/` avec les fichiers appropriés.
 
----
-
-**Sauvegarde et dépannage**
-
-- Le fichier principal de sauvegarde est : `DATA\sauvegarde.json`.
-- Pour vérifier que la sauvegarde fonctionne :
-  1. Lancer `main.py`.
-  2. Créer un compte (ou se connecter avec un compte existant).
-  3. Jouer quelques questions dans un mode court.
-  4. Ouvrir `DATA\sauvegarde.json` et vérifier que les champs `xp_...` et `parties_jouees_...` ont augmenté.
-
-Si le fichier JSON est corrompu ou que tu veux repartir à zéro :
-
-- Option 1 (réinitialiser) : supprimer `DATA\sauvegarde.json` (le programme le recréera au prochain enregistrement).
-- Option 2 (debug) : ajouter des `print()` temporaires autour de `s.sauvegarder_auto(data)` pour vérifier que la fonction est appelée.
-
-Permissions : si l'écriture échoue, assure-toi que ton compte utilisateur a les droits d'écriture sur le dossier `DATA`.
-
----
-
-**Sécurité des mots de passe**
-
-Actuellement les mots de passe sont stockés en clair dans `sauvegarde.json`. Pour plus de sécurité, il est recommandé de migrer vers un système de hachage (par ex. `bcrypt`). Si tu veux, je peux t'aider à :
-
-- ajouter `bcrypt` comme dépendance ;
-- migrer les comptes existants (détecter les mots de passe non hachés et les convertir lors de la prochaine connexion) ;
-- mettre à jour `selectionner_joueur` pour vérifier les hachages.
-
----
-
-**Tests**
-
-Il n'y a pas encore de tests automatiques dans le dépôt. Pour commencer on peut ajouter des tests unitaires minimalistes avec `pytest` pour `CORE/funk.py` (migration, ajout de joueur, ajout XP et Level_up).
-
-Exemple d'installation :
-
-```powershell
-python -m pip install pytest
-```
-
-Je peux générer un dossier `tests/` et quelques tests si tu veux.
-
----
-
-**Bonnes pratiques et idées d'amélioration**
-
-- Hacher les mots de passe (bcrypt).
-- Centraliser la logique d'ajout XP (déjà partiellement fait dans `s.ajouter_xp`).
-- Paramétrer les paliers de level-up via un fichier de config (JSON) plutôt que des +500 fixes.
-- Ajouter des logs (`logging`) pour remplacer les `print()`.
-- Extraire la configuration (couleurs, textes) dans `DATA/` et documenter la structure.
-- Ajouter une interface graphique Kivy (optionnel) — il y a déjà des ressources dans le projet.
-
----
-
-**Contribuer**
-
-Si tu veux que je t'aide à :
-
-- préparer une release `v0.10.1` (bump de version + changelog),
-- ajouter tests unitaires,
-- hacher les mots de passe,
-
-réponds avec l'option choisie et je l'implémente.
-
----
-
-# Auteur
+## Auteur
 - Rutvam55
