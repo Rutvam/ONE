@@ -30,8 +30,6 @@ class DataLoader:
             return DataLoader._load_language(path["language"])
         elif subject == "ScNat":
             return DataLoader._load_scnat(path["scnat"])
-        elif subject == "Math":
-            return DataLoader._load_math()
         elif subject == "Geo":
             return DataLoader._load_geography(path["geo"])
         elif subject == "Histo":
@@ -115,20 +113,6 @@ class DataLoader:
             print("Error: Invalid JSON format in Natural Sciences data file.")
 
         return elements, atomic_numbers
-
-    @staticmethod
-    def _load_math():
-        """Load mathematics data"""
-        try:
-            # NOTE: Assuming 'math_base' is available in the expected file path
-            from MATIERE.MATH.math import math_base
-            return math_base
-        except ImportError:
-            print("Error: Math base function not found. Returning a dummy function.")
-            def dummy_math_base():
-                return "2 + 2 = ?", 4
-            return dummy_math_base
-
 
     @staticmethod
     def _load_geography(geo_path):

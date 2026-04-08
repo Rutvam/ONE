@@ -1,119 +1,206 @@
-# ONE
+# 🧠 ONE - Intelligent Learning Console App
 
-ONE est une application éducative interactive développée en Python, conçue pour aider les utilisateurs à apprendre et à pratiquer diverses matières scolaires. Le projet intègre des modules pour les mathématiques, la géographie, l'histoire, les langues et les sciences naturelles, avec une architecture modulaire permettant l'extension facile.
+## 📌 Description
 
-## Structure et role de chaque fichier du Projet 
-Fichiers Racine
-- **main.c**
-    > Cœur du programme. Ne travaille jamais seul ; ses coéquipiers sont `link.py` et `main_def.py`.
-- **main.exe**
-    > Fichier executable (`.exe`) générée à patir de `main.exe`
-- **calcule.c**
-    > Un petit programme C avec des fonctions de calcul.
-- **calcule.dll**
-    > Bibliothèque dynamique générée à partir de `calcule.c`.
+**ONE** est une application console développée en Python qui combine :
+
+* 🎓 apprentissage interactif (maths, langues, sciences, etc.)
+* 🤖 système d'apprentissage intelligent (IA)
+* 🔐 gestion sécurisée des comptes utilisateurs
+* 🎮 modes de jeu (infini et normal)
+
+Ce projet a été développé sur une durée d’environ **1 an**, avec une évolution progressive vers une architecture modulaire et plus robuste.
+
+---
+
+## 🚀 Fonctionnalités
+
+### 🔐 Système de comptes
+
+* Création de compte
+* Connexion sécurisée
+* Hash des mots de passe avec `salt` (SHA-256)
+* Vérification des identifiants
+* Protection contre erreurs (fichiers manquants, mauvais input)
+
+---
+
+### 🎮 Modes de jeu
+
+* **Mode Infini** : enchaînement de questions jusqu'à erreur
+* **Mode Normal** : nombre de questions défini avec score final
+
+---
+
+### 📚 Matières disponibles
+
+* Langues (vocabulaire, conjugaison)
+* Mathématiques
+* Sciences naturelles
+* Géographie
+* Histoire
+
+---
+
+### 🤖 IA (INLL - Intelligent Natural Language Learning)
+
+* Analyse de texte utilisateur
+* Apprentissage de nouveaux mots
+* Génération de réponses automatiques
+
+---
+
+### ⚙️ Paramètres
+
+* Choix des matières
+* Activation/désactivation des modules
+* Sélection de langue (FR / EN / DE)
+
+---
+
+### 🎨 Interface console
+
+* Couleurs ANSI
+* Menus interactifs
+* Navigation claire
+
+---
+
+## 🧱 Architecture du projet
+
+Le projet est structuré de manière modulaire :
+
+**ONE**/
+- **README**.md
+- **main**.c
+- **main**.so or **main**.exe or **main**.dylib
+- **main_def**.py
 - **link.py**
-    > Existe pour éviter les boucles d'import.
-- **main_def.py**
-    > Définitions principales utilisées par `main.py`.
-- **README.md**
-    > Ce fichier.
+- **DATA**/
+  - *memoir*.json
+  - *path*.json
+  - *police*.json
+- **KI**/
+  - *ia*.py
+- **SECURITER**/
+  - *code*.py
+- **CORE**/
+  - *ci*.py
+  - *dataloader*.py
+  - *exercise*.py
+  - *CLASSE_SECONDAIRE*/
+    - *button*.py
+    - *couleur*.py
+    - *langue*.py
+    - *player*.py
+    - *sauvegarde*.py
+  - *DATA*/
+    - *sauvegarde.json*
+- **MATIERE**/
+  - *GEO*/
+    - geo.json
+    - geo.py
+  - *HISTO*/
+    - histo.py
+    - histoire.json
+  - *LANGUE*/
+    - langue.json
+    - langue.py
+    - langue_verb.json
+  - *MATH*/
+    - calcule.c
+    - math.py
+  - *SCNAT*/
+    - scnat.json
+    - scnat.py
 
-### CORE/
-🧠 Cerveau de l'application ONE.  
-Contient la logique centrale commune à toutes les matières.
-- **ci.py**
-    > Paramètres globaux, styles et fonctions utilitaires communes.
-- **dataloader.py**
-    > Gestion du chargement des données depuis `DATA/`.
-- **exercise.py**
-    > Classe centrale reliant `main.py` aux différentes matières situées dans `MATIERE/`.
 
-#### CLASSE_SECONDAIRE/
-Classes secondaires, stables ou peu utilisées. Conservées pour compatibilité, référence ou évolution future.
-- **button.py**
-    > Logique des boutons switch (ON/OFF). Sauvegarde également les boutons activés pour créer des quiz.
-- **couleur.py**
-    > Contient une fonction pouvant modifier la couleur et le style du texte en code ANSI.
-- **langue.py**
-    > Contient une fonction pouvant modifier la langue de tout le programme.
-- **player.py**
-    > Contient une classe Player.
-- **sauvegarde.py**
-    > Contient de nombreuses fonctions pour sauvegarder dans le fichier `DATA/sauvegarde.json`.
+👉 `link.py` agit comme un **centralisateur de dépendances** pour éviter les imports circulaires.
 
-### DATA/
-Dossier où les progrès des joueurs sont sauvegardés, où l'IA sauvegarde ses données et où le code ANSI a été traduit.
-- **sauvegarde.json**
-    > Sauvegarde des progrès des utilisateurs.
-- **path.json**
-    > Chemins de fichiers.
-- **police.json**
-    > Configurations de style d'ecriture utiliser par `couleur.py`.
-- **memoir.json**
-    > Mémoire du vocabulaire d'`INLL`.
+---
 
-### KI/
-Dossier regroupant plusieurs fonctions d'intelligence artificielle. Encore en développement.
-- **ia.py**
-    > Module d'IA.
+## 🔧 Installation
 
-### MATIERE/
-Dossier regroupant plusieurs sous-dossiers pour chaque matière.
-#### GEO/
-- **geo.json**
-    > Données géographiques.
-- **geo.py**
-    > Module pour la géographie.
+### 1. Cloner le projet
 
-#### HISTO/
-- **histo.py**
-    > Module pour l'histoire.
-- **histoire.json**
-    > Données historiques.
+```bash
+git clone https://github.com/ton-username/ONE.git
+cd ONE
+```
 
-#### LANGUE/
-- **langue_verb.json**
-    > Données sur les verbes.
-- **langue.json**
-    > Données linguistiques générales.
-- **langue.py**
-    > Module pour les langues.
+### 2. Installer les dépendances
 
-#### MATH/
-- **math.c**
-    > Implémentation en C pour les mathématiques.
-- **math.py**
-    > Module Python pour les mathématiques.
+Le programme peut installer automatiquement certains modules, sinon :
 
-#### SCNAT/
-- **scnat.json**
-    > Données sur les sciences naturelles.
-- **scnat.py**
-    > Module pour les sciences naturelles.
+```bash
+pip install pwinput
+```
 
-### SECURITER/
-Pas encore relié avec le programme.
-- **code.py**
-    > Module de sécurité.
-- **mapping_1.json**, **mapping_2.json**, **mapping_3.json**
-    > Fichiers de mapping pour la sécurité.
+---
 
-## Installation
+## ▶️ Lancer le programme
 
-1. Assurez-vous d'avoir Python installé (version 3.8 ou supérieure).
-2. Clonez ou téléchargez le projet dans un dossier.
-3. Créez un environnement virtuel : `python -m venv .venv`
-4. Activez l'environnement : `.venv\Scripts\activate` (Windows) ou `source .venv/bin/activate` (Linux/Mac).
-5. Installez les dépendances si nécessaire (vérifiez `requirements.txt` s'il existe).
+### Compiler main.c
+```bash
+gcc main.c -o main
+```
 
-## Utilisation
+### executer
+```bash
+./main
+```
 
-Lancez le programme principal avec `main.exe`. Suivez les instructions à l'écran pour naviguer dans les différentes matières et exercices.
+---
 
-## Développement
+## 🔒 Sécurité
 
-Le projet utilise une architecture modulaire. Pour ajouter une nouvelle matière, créez un dossier dans `MATIERE/` avec les fichiers appropriés.
+* Les mots de passe ne sont **pas stockés en clair**
+* Utilisation de :
 
-## Auteur
-- Rutvam55
+  * `salt` aléatoire
+  * `hash SHA-256`
+
+⚠️ Le module `codage()` est utilisé uniquement pour **l'obfuscation**, pas pour la sécurité.
+
+---
+
+## 💡 Objectifs du projet
+
+* Apprendre Python en profondeur
+* Construire une application complète
+* Gérer :
+
+  * utilisateurs
+  * données
+  * logique métier
+  * interface utilisateur
+
+---
+
+
+## 🛠️ Technologies utilisées
+
+* Python 3
+* `hashlib`
+* `ctypes` (liaison avec librairie C)
+* `pwinput`
+* ANSI escape codes (interface console)
+
+---
+
+## ⚠️ Remarques
+
+* Projet éducatif (non destiné à la production)
+* Certaines parties sont volontairement expérimentales (IA, obfuscation)
+
+---
+
+## 👨‍💻 Auteur
+
+- Rutvam (compte priver) et Rutvam55 (compte scolaire): Un étudiant dans aucune section.
+
+---
+
+## 📜 Licence
+
+Libre d’utilisation pour apprentissage et expérimentation.

@@ -13,6 +13,10 @@
     },
     "scnat": "MATIERE/SCNAT/scnat.json", 
     "geo": "MATIERE/GEO/geo.json",
-    "histo": "MATIERE/HISTO/histo.json"
-
+    "histo": "MATIERE/HISTO/histo.json",
+    "calcule": {
+        "Windows": "MATIERE\\MATH\\calcule.dll",
+        "Darwin": "MATIERE/MATH/calcule.dylib",
+        "Linux": "MATIERE/MATH/calcule.so"
+    }
 }

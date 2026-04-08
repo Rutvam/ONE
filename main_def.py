@@ -1,13 +1,42 @@
 import os
+import subprocess
+import sys
+import importlib.util
+
+
+def check_and_install(package):
+    #Check if the modul is installed
+    spec = importlib.util.find_spec(package)
+    if spec is None:
+        print(f"INFO:Installation for {package}...")
+        subprocess.check_call ([sys.executable, "-m", "pip", "install", package])
+    else:
+        print(f"INFO:{package} is already installed.")
+
+def clear(os_info, username, player):
+    os.system("cls" if os.name == "nt" else "clear")
+    print(f"{__string_color__}| Username: {__value_color__}{username}{__string_color__} | Language: {__value_color__}{player.get('P').get('langue')}{__string_color__} | OS name: {__value_color__}{os_info.get('name')}{__string_color__} | Version: {__value_color__}{os_info.get('version')}{__string_color__} | Completed infos: {__value_color__}{os_info.get('os')}{__reset_color__} |")
+    print(f"{__string_color__}| Level English: {__number_color__}{player.get('Anglais').get('Level_Anglais')}{__string_color__} | Level Francais: {__number_color__}{player.get('Francais').get('Level_Francais')}{__string_color__} | {__string_color__}Level Deutsch: {__number_color__}{player.get("Deutsch").get("Level_Deutsch")}{__string_color__} | Level Mathe: {__number_color__}{player.get("Math").get("Level_Math")}{__string_color__} | {__string_color__}Level ScNat: {__number_color__}{player.get("ScNat").get("Level_ScNat")}{__string_color__} | {__string_color__}Level Geo: {__number_color__}{player.get("Geo").get("Level_Geo")}{__string_color__} | {__string_color__}Level Histo: {__number_color__}{player.get("Histo").get("Level_Histo")}{__string_color__} | Max XP {__number_color__}{int(player.get("Anglais").get("xp_Anglais")) + int(player.get("Francais").get("xp_Francais")) + int(player.get("Deutsch").get("xp_Deutsch")) + int(player.get("Math").get("xp_Math")) + int(player.get("ScNat").get("xp_ScNat")) + int(player.get("Geo").get("xp_Geo")) + int(player.get("Histo").get("xp_Histo")) if username != None else None}\n")   
+    print(f"{__string_color__}============== ONE =============={__reset_color__}")
+
+check_and_install("pwinput")
 import pwinput
 import random
 import link as link
 import ctypes
-
 # helpers et singletons récupérés via getters pour éviter effets de bord à l'import
 set_player = link.set_player
 controller_int = link.controller_int
 langue = link.langue
+
+__warning_color__ = "\x1b[1;37;41m"
+__number_color__ = "\x1b[1;33;41m"
+__string_color__ = "\x1b[0;39;49m"
+__input_color__ = "\x1b[0;3;36;49m"
+__value_color__ = "\x1b[1;36;44m"
+__reset_color__ = "\x1b[0m"
+__false_color__ = "\x1b[1;31;49m"
+__true_color__ = "\x1b[1;32;49m"
 
 # instances fréquemment utilisées
 s = link.get_sauvegarde()
@@ -17,12 +46,19 @@ ci = link.get_ci()
 Data_Loader = link.get_data_loader()
 ia = link.get_ia()
 
-
 def main_program(test, info = {}):
-    I = True
-    O = False
-
-    lib = ctypes.CDLL(os.path.join(os.path.dirname(__file__), 'calcule.dll'))
+    test = input(f"{__string_color__}Do you want to test ONE before create a acount? [{__true_color__}Y{__string_color__}/{__false_color__}N{__string_color__}]\n>>\t{__input_color__}").lower()
+    if test in ["yes", "oui", "y", "ja"]:
+        test = True
+        print(f"{__string_color__}Testing mode is activate.{__reset_color__}")
+    elif test in ["no", "non", "n", "nein"]:
+        test = False
+        print(f"{__string_color__}Testing mode isn't activate.{__reset_color__}")
+    else:
+        test = False
+        print(f"{__warning_color__}WARNING: Sorry I don't understand.\nINFO: Test mode isn't activate.{__reset_color__}")
+    os_info = link.OS_finder()
+    lib = ctypes.CDLL(os.path.join(os.path.dirname(__file__), os_info.get("calcule_path")))
     lib.calculate_percentage.argtypes = [ctypes.c_int, ctypes.c_int]
     lib.calculate_percentage.restype = ctypes.c_double
 
@@ -31,10 +67,10 @@ def main_program(test, info = {}):
     #       MAIN PROGRAM
     # ===============================
 
-    running = I
-    connection = O
+    running = True
+    connection = False
 
-    if test == I:
+    if test == True:
         info = {
             "name": "Test",
             "key_word": "12345"
@@ -48,89 +84,184 @@ def main_program(test, info = {}):
         #  LOGIN
         # =================================
         while not connection:
-            os.system("cls" if os.name == "nt" else "clear")
-            print(ci.TEXT.text_editor("=== ONE ===", police = "FAT", text_color = "DEFAULT", background_color = "DEFAULT"))
-            password_correct = O
-            attempts = 3
-
-            if attempts == 0 and password_correct is O:
-                print("Too many incorrect attempts. Exiting...")
-                exit()
-
-            if not test:
-                username = input(ci.TEXT.text_editor("Enter your name.\n>\t", police = "UNDERLINE", text_color = "DEFAULT", background_color = "DEFAULT"))
-            else:
-                username = info["name"]
-
-            if not username:
-                print("Username cannot be empty.")
-                input("Press ENTER to continue...")
-                continue
-            if not test:
-                password = pwinput.pwinput(prompt = ci.TEXT.text_editor("Enter your password.\n>\t", police = "UNDERLINE", text_color = "DEFAULT", background_color = "DEFAULT"), mask='#')
-            else:
-                password = info["key_word"]
-            if not password:
-                print("Password cannot be empty.")
-                input("Press ENTER to continue...")
-                continue
-
-            player, password_correct = s.selectionner_joueur(data, username, password)
-            while I:
-                if player is None:
-                    create = input(ci.TEXT.text_editor("Player not found.\nCreate one? (Y/N)\n>\t", police = "DIM", text_color = "RED", background_color = "DEFAULT")).lower()
-
-                    if create in ["y", "oui", "yes", "ja"]:
-                        if s.ajouter_joueur(data, username, password):
-                            player = data["players"][username]
-                            s.sauvegarder_auto(data, )
-                            break
-                        else:
-                            print("ERROR")
-                            continue
-                    elif create in ["n", "non", "no", "nein"]:
-                        while password_correct is O and attempts > 0:
-                            username = input("Enter your name.\n>\t")
-                            password = pwinput.pwinput(prompt="Enter your password.\n>\t", mask='#')
-                            player, password_correct = s.selectionner_joueur(data, username, password)
-                            if password_correct is I:
-                                break
-                            attempts -= 1
-                            print(f"Password: {password}\nAttempts remaining: {attempts}/3")
-                        if attempts == 0 and password_correct is O:
-                            print("Too many incorrect attempts. Exiting.")
-                            exit()
-                    else:
-                        print("Sorry we don't understand.")
-                        a = a
+            username = None
+            player = {
+                "mot_de_passe": None,
+                "best_score": None,
+                "Francais": {
+                    "parties_jouees_Francais": None,
+                    "Level_Francais": None,
+                    "xp_Francais": None,
+                    "Max_xp_Francais": None
+                },
+                "Deutsch": {
+                    "parties_jouees_Deutsch": None,
+                    "Level_Deutsch": None,
+                    "xp_Deutsch": None,
+                    "Max_xp_Deutsch": None
+                },
+                "ScNat": {
+                    "parties_jouees_ScNat": None,
+                    "Level_ScNat": None,
+                    "xp_ScNat": None,
+                    "Max_xp_ScNat": None
+                },
+                "Anglais": {
+                    "parties_jouees_Anglais": None,
+                    "Level_Anglais": None,
+                    "xp_Anglais": None,
+                    "Max_xp_Anglais": None
+                },
+                "Math": {
+                    "parties_jouees_Math": None,
+                    "Level_Math": None,
+                    "xp_Math": None,
+                    "Max_xp_Math": None
+                },
+                "Geo": {
+                    "parties_jouees_Geo": None,
+                    "Level_Geo": None,
+                    "xp_Geo": None,
+                    "Max_xp_Geo": None
+                },
+                "Histo": {
+                    "parties_jouees_Histo": None,
+                    "Level_Histo": None,
+                    "xp_Histo": None,
+                    "Max_xp_Histo": None
+                },
+                "P": {
+                    "langue": "EN"
+                }
+            }
+            clear(os_info, username, player)
+            if os_info.get("name") == "Windows":
+                if os.path.exists("CORE\\DATA\\sauvegarde.json") or os.path.exists("DATA\\sauvegarde.json"):
+                    choix = input(f"{__string_color__}Do you want to {__value_color__}(1) connect{__string_color__} or {__value_color__}(2) create a acount{__string_color__}?\n>>\t{__input_color__}")
                 else:
-                    break
+                    choix = "2"
+                    input(f"{__string_color__}Preparing to create the account...\nPress enter...{__reset_color__}")
+            elif os_info.get("name") == "Linux":
+                if os.path.exists("CORE/DATA/sauvegarde.json") or os.path.exists("DATA/sauvegarde.json"):
+                    choix = input(f"{__string_color__}Do you want to {__value_color__}(1) connect{__string_color__} or {__value_color__}(2) create a acount{__string_color__}?\n>>\t{__input_color__}")
+                else:
+                    choix = "2"
+                    input(f"{__string_color__}Preparing to create the account...\nPress enter...{__reset_color__}")
+            elif os_info.get("name") == "Darwin":
+                if os.path.exists("CORE/DATA/sauvegarde.json") or os.path.exists("DATA/sauvegarde.json"):
+                    choix = input(f"{__string_color__}Do you want to {__value_color__}(1) connect{__string_color__} or {__value_color__}(2) create a acount{__string_color__}?\n>>\t{__input_color__}")
+                else:
+                    choix = "2"
+                    input(f"{__string_color__}Preparing to create the account...\nPress enter...{__reset_color__}")
+            if choix == "1":
+                clear(os_info, username, player)
+                password_state = False
+                attempts = 5
 
-            connection = I
+                while password_state is False:
+                    while username not in data["players"] or username == None:
+                        if not test:
+                            username = input(f"{__string_color__}Enter your username:\n>>\t{__input_color__}")
+                        else:
+                            username = info["name"]
+
+                        if not username:
+                            print(f"{__warning_color__}Username cannot be empty.{__reset_color__}")
+                            input("Press ENTER to continue...")
+                            continue
+
+                    if not test:
+                        password = pwinput.pwinput(prompt = f"{__string_color__}Enter your password:\n>>\t{__input_color__}", mask='#')
+                    else:
+                        password = info["key_word"]
+
+                    if not password:
+                        print(f"{__warning_color__}Password cannot be empty.{__reset_color__}")
+                        input("Press ENTER to continue...")
+                        continue
+
+                    player, password_state = s.selectionner_joueur(data, username, password)
+                    while password_state is False:
+                        # Mot de passe incorrect
+                        if link.verify_password(player["mot_de_passe"], password):
+                            password_state = True
+                        else:
+                            print(f"{__warning_color__}Mot de passe incorrect.{__reset_color__}")
+                            attempts -= 1
+                            password = pwinput.pwinput(prompt = f"Enter your password:\n>>\t{__input_color__}", mask='#')
+
+                        if attempts == 0:
+                            exit()
+
+            elif choix == "2":
+                clear(os_info, username, player)
+                username = input(f"{__string_color__}Enter a username:\n>>\t{__input_color__}")
+                while username in data["players"]:
+                    username = input(f"{__string_color__}Enter a {__warning_color__}different{__string_color__} username:\n>>\t{__input_color__}")
+
+                password = pwinput.pwinput(prompt = f"{__string_color__}Enter your password:\n>>\t{__input_color__}", mask='#')
+                while len(password) <= 7:
+                    password = pwinput.pwinput(prompt = f"{__string_color__}Your password is {__warning_color__}too short{__string_color__}. Please choose another one:\n>>\t{__input_color__}", mask='#')
+
+
+                while password != pwinput.pwinput(prompt = f"{__string_color__}Enter your password again:\n>>\t{__input_color__}", mask='#'):
+                    print(f"{__warning_color__}INFO:False. Try again")
+                    pwinput.pwinput(prompt = f"{__string_color__}Enter your password again:\n>>\t{__input_color__}", mask='#')
+                    password = pwinput.pwinput(prompt = f"{__string_color__}Enter your password:\n>>\t{__input_color__}", mask='#')
+                    while len(password) <= 7:
+                        password = pwinput.pwinput(prompt = f"{__string_color__}Your password is {__warning_color__}too short{__string_color__}. Please choose another one:\n>>\t{__input_color__}", mask='#')
+                    
+                hached = link.hash_password(password)
+                s.ajouter_joueur(data, username, hached)
+                player = data["players"][username]
+                s.sauvegarder_auto(data)
+            connection = True
             set_player(player)
 
         # ===============================
-        #       MAIN MENU
+        # | MAIN MENU
         # ===============================
-        while I:
-            os.system("cls" if os.name == "nt" else "clear")
-            # ===============================
-            #       LANGUAGE
-            # ===============================
-            Lang = link.langue()
+        while True:
+            clear(os_info, username, player)
+
+            # ============================================================
+            # | LANGUAGE
+            # ============================================================
+            # From this point on, avoid using print() with hardcoded text.
+            # Always use the translation system:
+            #     translated_text(key, langue)
+            # the def is in the file CORE/CLASSE_SECONDAIRE/langue.py.
+ 
             language = player['P']['langue']
-            # `Lang["main.1.p"]` est déjà une chaîne localisée; on la formate avec le nom
-            print(ci.TEXT.text_editor(text = f"{Lang["Welcome"][language]}!\n{Lang["What would you like to do"][language]}?", police = "FAT", text_color = "DEFAULT", background_color = "DEFAULT"))
-            choice = ci.INPUT.input_2c(text = ci.TEXT.text_editor(text = f"1. {Lang["Training"][language]}\n2. INLL\nS. {Lang["Setting"][language]}", police = "NONE", text_color = "DEFAULT", background_color = "DEFAULT"), c1 = "q", c2 = "h").strip().lower()
+            from CORE.CLASSE_SECONDAIRE.langue import translate
+            translate(__string_color__, "Welcome", language, "print", f"!{__reset_color__}")
+            translate(__string_color__, "What would you like to do", language, "print", f"?{__reset_color__}")
+            translate(f"{__value_color__}1.{__reset_color__} ", "Training", language, "print", ".")
+            print(f"{__value_color__}2.{__reset_color__} INLL (Testing).")
+            choice = translate(f"{__value_color__}2.{__reset_color__} ", "Setting", language, "input", f"\n>>\t{__input_color__}")
 
-
-            # =======================================
-            #         SETTINGS
-            # =======================================
+            # =============================================================================================================
+            # | 1. Training                                                                                               |
+            # =============================================================================================================
+            # This section manages the training system and is divided into several steps.
+            #
+            # Step 1:
+            # - Multiple buttons are displayed in the OFF state.
+            #   This means their corresponding topics will NOT appear in the quiz.
+            # - To activate a topic, type the code shown before the button name (e.g. "1", "1.1").
+            # - Once you understand this system, you can select the topics you want.
+            #
+            # Step 2:
+            # - Press ENTER to continue.
+            # - Choose a game mode:
+            #     • Infinite:
+            #       Unlimited questions, but the session stops immediately after a mistake.
+            #     • Normal:
+            #       You define the number of questions.
+            #       At the end, you receive your score and success percentage.
             if choice == "1":
-
-                while I:
-                    os.system("cls" if os.name == "nt" else "clear")
+                while True:
+                    clear(os_info, username, player)
                     print(f"=========== {Lang['Setting'][player["P"]["langue"]]} ===========")
 
                     def show(btn, txt):
@@ -143,10 +274,10 @@ def main_program(test, info = {}):
                         print(f"({state}) {txt} ")
                         return boole
 
-                    state = show("1", ("1 " + Lang["Language"][language]))
+                    state = show("1", ("1 " + Lang['Language'][language]))
                     if state == "ON":
-                        _ = show("1_1", ("1.1 " + Lang["Vocabulary"][language]))
-                        _ = show("1_2", ("1.2 " + Lang["Conjugation"][language]))
+                        _ = show("1_1", ("1.1 " + Lang['Vocabulary'][language]))
+                        _ = show("1_2", ("1.2 " + Lang['Conjugation'][language]))
                         _ = show("EN", ("EN) " + Lang["English"][language]))
                         _ = show("FR", ("FR) " + Lang["French"][language]))
                         _ = show("DE", ("DE) " + Lang["German"][language]))
@@ -206,7 +337,7 @@ def main_program(test, info = {}):
                         break
                     elif action.lower() == "q" or action.lower() == "quit":
                         print("Goodbye!")
-                        running = O
+                        running = False
                         exit()
                     else:
                         print("Invalid choice.")
@@ -228,17 +359,17 @@ def main_program(test, info = {}):
                 #           INFINITE MODE
                 # =====================================
                 if mode_choice in ["1", "infinite"]:
-                    streak = I
+                    streak = True
                     ndq = 0
 
-                    while streak == I:
+                    while streak == True:
 
 
 
                         ndq += 1
                         selected_game = random.choice(menu)
                         xp_gained = 0
-                        score = O
+                        score = False
                         if selected_game == "ScNat":
                             exercise_score, xp, streak = ci.matiere(link.get_scnat(), choices_scnat, player, ndq, score)
                         elif selected_game == "Language":
@@ -252,22 +383,22 @@ def main_program(test, info = {}):
                             exercise_score, xp, streak = ci.matiere(link.get_histo(), choices_histo, player, ndq, score)
                         else:
                             print("Game selection error.")
-                            streak = O
+                            streak = False
 
-                        if streak == I or streak == None:
-                            streak = I
+                        if streak == True or streak == None:
+                            streak = True
                         else:
-                            streak = O
+                            streak = False
 
                         s.Level_up(player)
                         s.sauvegarder_auto(data)
-                        os.system('cls' if os.name == 'nt' else 'clear')
+                        clear(os_info, username, player)
 
                 # =====================================
                 #            NORMAL MODE
                 # =====================================
                 elif mode_choice in ["2", "normal"]:
-                    streak = I
+                    streak = True
                     attempts = 5
                     max_attempts = attempts
                     score = 0
@@ -292,18 +423,18 @@ def main_program(test, info = {}):
                             exercise_score, xp, streak = ci.matiere(link.get_histo(), choices_histo, player, i, score)
                         else:
                             print("Game selection error.")
-                            streak = O
+                            streak = False
 
-                        if streak == I or streak == None:
-                            streak = I
+                        if streak == True or streak == None:
+                            streak = True
                         else:
-                            streak = O
+                            streak = False
 
                         s.Level_up(player)
                         s.sauvegarder_auto(data)
                         if i < ndq - 1:
                             input("Press ENTER to continue...")
-                        os.system('cls' if os.name == 'nt' else 'clear')
+                        clear(os_info, username, player)
 
                     percentage = lib.calculate_percentage(score, ndq)
                     input(f"Your result:\nScore: {score}\nSuccess percentage: {percentage}%\nPress ENTER to continue...")
@@ -312,7 +443,7 @@ def main_program(test, info = {}):
             #         INLL (AI Learning)
             # =======================================
             elif choice == "2":
-                os.system("cls" if os.name == "nt" else "clear")
+                clear(os_info, username, player)
                 print("=== INLL (Intelligent Natural Language Learning) ===")
                 lang_choice = input(
                     "In which language do you want to write?\n"
@@ -334,7 +465,7 @@ def main_program(test, info = {}):
                 lang_code, message = mapping[lang_choice]
                 print("Hello! You can start writing your text. Type 'q' to quit.")
 
-                while I:
+                while True:
                     text = input(message)
 
                     if text.lower() == "q":
@@ -358,7 +489,7 @@ def main_program(test, info = {}):
             #         SETTINGS (Player)
             # =======================================
             elif choice == "s" or choice == "p":
-                os.system("cls" if os.name == "nt" else "clear")
+                clear(os_info, username, player)
                 settings_choice = input("What do you want to do?\n1. Change language\n> ").strip()
 
                 if settings_choice == "1":
@@ -389,7 +520,7 @@ def main_program(test, info = {}):
             # =======================================
             elif choice == "q":
                 print("Goodbye!")
-                running = O
+                running = False
                 break
 
             else:

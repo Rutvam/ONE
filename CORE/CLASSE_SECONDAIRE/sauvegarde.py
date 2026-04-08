@@ -282,7 +282,7 @@ class sauvegarde:
         Vérifie si le player existe et si le mot de passe est correct.
         Retourne toujours (player, mot_correct)
         player = dict ou None
-        mot_correct = True / False
+        mot_de_passe_correct = True / False
         """
         if "players" not in donnees:
             print("Aucune sauvegarde chargée.")
@@ -300,11 +300,7 @@ class sauvegarde:
             print("Données du player corrompues.")
             return None, False
 
-        # Mot de passe incorrect
-        if player["mot_de_passe"] != mot_de_passe:
-            print("Mot de passe incorrect.")
-            return None, False
 
         # Succès
-        return player, True
+        return player, False
     

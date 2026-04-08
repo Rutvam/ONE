@@ -15,7 +15,7 @@ class CI:
             if not self.COLOR:
                 print("⚠️ Avertissement : Échec du chargement des données de couleur. Utilisation des codes ANSI par défaut.")
                 self.COLOR = {
-                    "CODE": "\033[",
+                    "CODE": "\x1b[",
                     "RESET": "0",
                     "END CODE": "m",
                     "police": {"FAT": "1", "DIM": "2", "NONE": "0"},
@@ -28,7 +28,7 @@ class CI:
             text_code = self.COLOR.get("COLOR TEXT", {}).get(text_color, "")
             background_code = self.COLOR.get("BACKGROUND COLOR", {}).get(background_color, "")
 
-            code = self.COLOR.get("CODE", "\033[")
+            code = self.COLOR.get("CODE", "\x1b[")
             reset = self.COLOR.get("RESET", "0")
             end = self.COLOR.get("END CODE", "m")
 

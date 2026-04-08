@@ -190,6 +190,12 @@ def langue():
     }
     return LA
 
+def translate(prefix, key, lang, mode, sufix):
+    Lang = langue()
+    if mode == "print":
+        print(prefix + Lang[key][lang] + sufix)
+    elif mode == "input":
+        return input(prefix + Lang[key][lang] + sufix)
 
 def get_text(key, lang='EN'):
     """Raccourci pour récupérer le texte localisé.
@@ -202,3 +208,12 @@ def get_text(key, lang='EN'):
     if not data:
         return key
     return data.get(lang, data.get('EN', key))
+
+if __name__ == '__main__':
+    translate("!!!", "Welcome", "EN", "p", "!!!")
+    translate("!!!", "Welcome", "FR", "p", "!!!")
+    translate("!!!", "Welcome", "DE", "p", "!!!")
+
+    translate("!!!", "Press ENTER to continue", "EN", "i", "!!!")
+    translate("!!!", "Press ENTER to continue", "FR", "i", "!!!")
+    translate("!!!", "Press ENTER to continue", "DE", "i", "!!!")

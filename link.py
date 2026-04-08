@@ -3,6 +3,7 @@ import os
 from CORE.ci import CI
 from CORE.dataloader import DataLoader
 from CORE.exercise import Exercise
+from CORE.def_OS_finder import OS_finder
 from CORE.CLASSE_SECONDAIRE.sauvegarde import sauvegarde, controller_int
 from CORE.CLASSE_SECONDAIRE.player import Player
 from CORE.CLASSE_SECONDAIRE.button import Button
@@ -13,6 +14,7 @@ from MATIERE.GEO.geo import Geo
 from MATIERE.MATH.math import Math
 from MATIERE.SCNAT.scnat import ScNat
 from MATIERE.HISTO.histo import Histo
+from SECURITER.hach import hash_password, verify_password
 from KI.ia import IA
 
 # Global variable for player
@@ -26,6 +28,7 @@ def set_player(p):
     global player
     player = p
 
+
 ci = None
 Data_Loader = None
 Ex = None
@@ -38,7 +41,6 @@ s = None
 buttons = None
 ia = None
 couleurs = None
-
 
 def get_ci():
     global ci
