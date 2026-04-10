@@ -194,6 +194,8 @@ def translate(prefix, key, lang, mode, sufix):
     Lang = langue()
     if mode == "print":
         print(prefix + Lang[key][lang] + sufix)
+    if mode == "noprint":
+        return prefix+Lang[key][lang]+sufix
     elif mode == "input":
         return input(prefix + Lang[key][lang] + sufix)
 

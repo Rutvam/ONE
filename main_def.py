@@ -29,14 +29,19 @@ set_player = link.set_player
 controller_int = link.controller_int
 langue = link.langue
 
-__warning_color__ = "\x1b[1;37;41m"
-__number_color__ = "\x1b[1;33;41m"
-__string_color__ = "\x1b[0;39;49m"
-__input_color__ = "\x1b[0;3;36;49m"
-__value_color__ = "\x1b[1;36;44m"
-__reset_color__ = "\x1b[0m"
-__false_color__ = "\x1b[1;31;49m"
-__true_color__ = "\x1b[1;32;49m"
+__string_type__ = "0"; __string_text_color__ = "39"; __string_background_color__ = "49"
+__string_color__ = f"\x1b[{__string_type__};{__string_text_color__};{__string_background_color__}m"
+
+__warning_type__ = "1"; __warning_text_color__ = "39"; __warning_background_color = "41"
+__warning_color__ = f"\x1b[{__warning_type__};{__warning_text_color__};{__warning_background_color__}m" 
+
+
+__number_color__ = f"\x1b[1;{__string_text_color__};41m"
+__input_color__ = f"\x1b[0;3;36;49m"
+__value_color__ = f"\x1b[1;36;44m"
+__reset_color__ = f"\x1b[0m"
+__false_color__ = f"\x1b[1;31;49m"
+__true_color__ = f"\x1b[1;32;49m"
 
 # instances fréquemment utilisées
 s = link.get_sauvegarde()
@@ -238,7 +243,7 @@ def main_program(test, info = {}):
             translate(__string_color__, "What would you like to do", language, "print", f"?{__reset_color__}")
             translate(f"{__value_color__}1.{__reset_color__} ", "Training", language, "print", ".")
             print(f"{__value_color__}2.{__reset_color__} INLL (Testing).")
-            choice = translate(f"{__value_color__}2.{__reset_color__} ", "Setting", language, "input", f"\n>>\t{__input_color__}")
+            choice = translate(f"{__value_color__}S.{__reset_color__} ", "Setting", language, "input", f"\n>>\t{__input_color__}")
 
             # =============================================================================================================
             # | 1. Training                                                                                               |
@@ -261,49 +266,54 @@ def main_program(test, info = {}):
             #       At the end, you receive your score and success percentage.
             if choice == "1":
                 while True:
-                    clear(os_info, username, player)
-                    print(f"=========== {Lang['Setting'][player["P"]["langue"]]} ===========")
 
+                    # =======================
+                    # | choice of materials |
+                    # =======================
+                    # There are several materials you can choose from.
+                    # 1. Language (English, Frensh and German)
+                    # 2. ScNat (natural science)
+                    # 3. Mathematics
+                    # 4. Geography
+                    # 5. History
+                    
+                    clear(os_info, username, player)
+                    print(f"=========== {translate(__string_color__, 'Setting', language, 'noprint', '')} ===========")
                     def show(btn, txt):
                         """Show button state"""
                         boole = "ON" if buttons.state[btn] else "OFF"
                         if boole == "ON":
-                            state = ci.TEXT.text_editor("ON", police = "FAT", text_color = "GREEN", background_color = "DEFAULT")
+                            state = __true_color__ + "ON" + __reset_color__
                         else:
-                            state = ci.TEXT.text_editor("OFF", police = "FAT", text_color = "RED", background_color = "DEFAULT")
+                            state = __false_color__ + "OFF" + __reset_color__
                         print(f"({state}) {txt} ")
                         return boole
 
-                    state = show("1", ("1 " + Lang['Language'][language]))
+                    state = show("1", translate(__value_color__+"1 "+__reset_color__, 'Language', language, "noprint", ""))
                     if state == "ON":
-                        _ = show("1_1", ("1.1 " + Lang['Vocabulary'][language]))
-                        _ = show("1_2", ("1.2 " + Lang['Conjugation'][language]))
-                        _ = show("EN", ("EN) " + Lang["English"][language]))
-                        _ = show("FR", ("FR) " + Lang["French"][language]))
-                        _ = show("DE", ("DE) " + Lang["German"][language]))
-                        print("")
+                        _ = show("1_1", translate(__value_color__+"\t1.1 "+__reset_color__, 'Vocabulary', language, "noprint", ""))
+                        _ = show("1_2", translate(__value_color__+"\t1.2 "+__reset_color__, 'Conjugation', language, "noprint", ""))
+                        _ = show("EN", translate(__value_color__+"\tEN) "+__reset_color__, "English", language, "noprint", ""))
+                        _ = show("FR", translate(__value_color__+"\tFR) "+__reset_color__, "French", language, "noprint", ""))
+                        _ = show("DE", translate(__value_color__+"\tDE) "+__reset_color__, "German", language, "noprint", "\n"))
 
-                    state = show("2", ("2 " + Lang["Natural Sciences"][language]))
+                    state = show("2", translate(__value_color__+"2 "+__reset_color__, "Natural Sciences", language, "noprint", ""))
                     if state == "ON":
-                        _ = show("2_1", ("\t2.1 " + Lang["Name of the elements"][language]))
-                        _ = show("2_2", ("\t2.2 " + Lang["Atomic number"][language]))
-                        print("")
+                        _ = show("2_1", translate(__value_color__+"\t2.1 "+__reset_color__, "Name of the elements", language, ""))
+                        _ = show("2_2", translate(__value_color__+"\t2.2 "+__reset_color__, "Atomic number", language, "\n"))
 
-                    state = show("3", ("3 " + Lang["Mathematics"][language]))
+                    state = show("3", translate(__value_color__+"3 "+__reset_color__, "Mathematics", language, ""))
                     if state == "ON":
-                        _ = show("3_1", ("\t3.1 " + Lang["The Basics (+ - x ÷)"][language]))
-                        print("")
+                        _ = show("3_1", translate(__value_color__+"\t3.1 "+__reset_color__, "The Basics (+ - x ÷)", language, "\n"))
 
-                    state = show("4", ("4 " + Lang["Geography"][language]))
+                    state = show("4", translate(__value_color__+"4 "+__reset_color__, "Geography", language, ""))
                     if state == "ON":
-                        _ = show("4_1", ("\t4.1 " + Lang["Plate tectonics theory"][language]))
-                        print("")
+                        _ = show("4_1", translate(__value_color__+"\t4.1 "+__reset_color__, "Plate tectonics theory", language, "\n"))
 
-                    state = show("5", ("5 " + Lang["History"][language]))
+                    state = show("5", translate(__value_color__+"5 "+__reset_color__, "History", language, ""))
                     if state == "ON":
-                        _ = show("5_1", ("\t5.1 " + Lang["Plate tectonics theory"][language]))
-                        _ = show("5_2", ("\t5.2 " + Lang["Industrialization"][language]))
-                        print("")
+                        _ = show("5_1", translate(__value_color__+"\t5.1 "+__reset_color__, "Plate tectonics theory", language, ""))
+                        _ = show("5_2", translate(__value_color__+"\t5.2 "+__reset_color__, "Industrialization", language, "\n"))
 
                     print("=" * 40)
                     action = input("\nq: Quit\nENTER to validate, or choose a button.\n>\t").strip()
