@@ -30,15 +30,15 @@ int question_english(cJSON *json)
 
 				// 1=correct  0=aide -1=faut
 				if (!strcmp(answer, correct)) {
-					printf("reponse correct");
+					printf("\033[1;32mreponse correct\033[0m\n\n");
 					return 1;
 				} else if (!strcmp(answer, "?")) {
-					printf("reponse correct: %s", correct);
+					printf("reponse correct: %s\n\n", correct);
 					return 0;
 				} else if (!strcmp(answer, "Q")) {
 					return 2;
 				} else if (strcmp(answer, correct)) {
-					printf("reponse correct = %s", correct);
+					printf("\033[1;31mreponse correct: %s\033[0m\n\n", correct);
 					return -1;
 				}
 

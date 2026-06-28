@@ -6,7 +6,7 @@
 void random_value(int *a, int *b, char *op)
 {
 	int op_temp;
-	op_temp = rand()%0x04;
+	op_temp = rand()%4;
 	if (op_temp == 3) {
 		int pro_temp = rand()%2;
 		int entier = 20-(rand()%40);
@@ -100,150 +100,70 @@ int opperation_basic(int a, int b, char op)
 int input(char answer[50])
 {
     int result = 0;
-    int state = 1; // On commence à 1 pour entrer au moins une fois dans la boucle
+    int state = 1;
 
     while (state)
     {
-        // 1. On demande la saisie de l'étape à l'intérieur du while
-        scanf("%49s", answer);
+        // 1. Lecture de la ligne complète
+        if (scanf("%49s", answer) != 1) return 0;
 
-        int len = strlen(answer);
-        int i = 0;
-        for (int j = 0; j >= 49; j++)
-        {
-        	if (answer[j] == '(')
-        	{
-				int k = i + 1;
-        		while (answer[k] != ')')
-        		{
-	        		// 2. Gérer le signe du TOUT PREMIER nombre (ex: -5 ou 12)
-    	    		int signe_initial = 1;
-        			if (answer[i] == '-') {
-        			    signe_initial = -1;
-        			    i++;
-        			} else if (answer[i] == '+') {
-        		    	i++;
-        			}
-
-        			// 3. Lire le premier nombre
-        			int premier_nombre = 0;
-        			while (i < len && answer[i] >= '0' && answer[i] <= '9') {
-        		    	premier_nombre = (premier_nombre * 10) + (answer[i] - '0');
-        		    	i++;
-        			}
-        			result = premier_nombre * signe_initial;
-
-        			// 4. Parcourir le reste de la chaîne pour les opérations
-        			while (i < len) {
-        		    	if (answer[i] == '+') {
-        		        	i++;
-        		        	int valeur_droite = 0;
-        		        	while (i < len && answer[i] >= '0' && answer[i] <= '9') {
-        		            	valeur_droite = (valeur_droite * 10) + (answer[i] - '0');
-        		            	i++;
-        		        	}
-        		        	result += valeur_droite;
-        		    	} 
-        		    	else if (answer[i] == '-') {
-        		        	i++;
-        		        	int valeur_droite = 0;
-        		        	while (i < len && answer[i] >= '0' && answer[i] <= '9') {
-        		            	valeur_droite = (valeur_droite * 10) + (answer[i] - '0');
-        		            	i++;
-        		        	}
-        		        	result -= valeur_droite;
-        		    	}
-        		    	else {
-        		        	i++; 
-        		    	}
-        			}
-
-        			// 5. MISE À JOUR DE STATE : On vérifie si l'utilisateur a encore écrit un opérateur 
-        			// ou s'il a juste donné le résultat final.
-        			state = 0; // Par défaut on suppose qu'il a fini (ex: il a juste écrit un nombre entier)
-        		
-        			// On affiche l'état actuel du calcul pour aider l'utilisateur
-        			printf("[Étape intermédiaire = %d] Continuer le calcul ou donner la réponse finale :\n>> ", result);
-        		
-        			// On inspecte la chaîne actuelle (jusqu'à sa vraie longueur 'len', pas 50 !)
-        			for(int j = 0; j < len; j++)
-        			{
-        		    	if(answer[j] == '+' || answer[j] == '-' || answer[j] == '*' || answer[j] == '/') {
-        		    	    state = 1; // Il y a encore un calcul à faire, on va reboucler !
-        		    	}
-        			}
-        			k++;
-    			}	
-        	}
-        }
-
-        // 2. Gérer le signe du TOUT PREMIER nombre (ex: -5 ou 12)
-        int signe_initial = 1;
-        if (answer[i] == '-') {
-            signe_initial = -1;
-            i++;
-        } else if (answer[i] == '+') {
-            i++;
-        }
-
-        // 3. Lire le premier nombre
-        int premier_nombre = 0;
-        while (i < len && answer[i] >= '0' && answer[i] <= '9') {
-            premier_nombre = (premier_nombre * 10) + (answer[i] - '0');
-            i++;
-        }
-        result = premier_nombre * signe_initial;
-
-        // 4. Parcourir le reste de la chaîne pour les opérations
-        while (i < len) {
-            if (answer[i] == '+') {
-                i++;
-                int valeur_droite = 0;
-                while (i < len && answer[i] >= '0' && answer[i] <= '9') {
-                    valeur_droite = (valeur_droite * 10) + (answer[i] - '0');
-                    i++;
-                }
-                result += valeur_droite;
-            } 
-            else if (answer[i] == '-') {
-                i++;
-                int valeur_droite = 0;
-                while (i < len && answer[i] >= '0' && answer[i] <= '9') {
-                    valeur_droite = (valeur_droite * 10) + (answer[i] - '0');
-                    i++;
-                }
-                result -= valeur_droite;
-            }
-            else {
-                i++; 
-            }
-        }
-
-        // 5. MISE À JOUR DE STATE : On vérifie si l'utilisateur a encore écrit un opérateur 
-        // ou s'il a juste donné le résultat final.
-        state = 0; // Par défaut on suppose qu'il a fini (ex: il a juste écrit un nombre entier)
+        int total = 0;
+        int valeur_courante = 0;
+        char op = '+'; // Par défaut, le premier nombre est ajouté à 0
         
-        // On affiche l'état actuel du calcul pour aider l'utilisateur
-        printf("[Étape intermédiaire = %d] Continuer le calcul ou donner la réponse finale :\n>> ", result);
+        char *ptr = answer;
+        int bytes_read = 0;
+
+        // On va lire la chaîne morceau par morceau : un opérateur puis un nombre
+        // Exemple : "-3+6" -> d'abord (pas d'opérateur, signe négatif), puis "+6"
         
-        // On inspecte la chaîne actuelle (jusqu'à sa vraie longueur 'len', pas 50 !)
-        for(int j = 0; j < len; j++)
-        {
-            if(answer[j] == '+' || answer[j] == '-' || answer[j] == '*' || answer[j] == '/') {
-                state = 1; // Il y a encore un calcul à faire, on va reboucler !
+        // Si le premier caractère est un nombre ou un signe, on le lit
+        if (sscanf(ptr, "%d%n", &valeur_courante, &bytes_read) == 1) {
+            total = valeur_courante;
+            ptr += bytes_read; // On avance dans la chaîne
+        }
+
+        // On parcourt le reste de la chaîne
+        while (sscanf(ptr, " %c %d%n", &op, &valeur_courante, &bytes_read) == 2) {
+            if (op == '+') {
+                total += valeur_courante;
+            } else if (op == '-') {
+                total -= valeur_courante;
+            } else if (op == '*') {
+                total *= valeur_courante;
+            } else if (op == '/') {
+                if (valeur_courante != 0) {
+                    total /= valeur_courante;
+                }
             }
+            ptr += bytes_read; // On avance après le bloc lu
+        }
+
+        result = total;
+        state = 0; // On a fini d'analyser toute la chaîne saisie
+
+        // On vérifie si l'utilisateur a entré une chaîne vide ou s'il reste des caractères non lus
+        // Si ptr n'est pas à la fin de la chaîne '\0', c'est qu'il y a un problème de syntaxe
+        if (*ptr != '\0') {
+            printf("[Erreur] Expression mal lue. Recommencez :\n>> ");
+            state = 1;
+        } else if (strchr(answer + 1, '+') != NULL || strchr(answer + 1, '-') != NULL || strchr(answer + 1, '*') != NULL || strchr(answer + 1, '/') != NULL) {
+        	state = 1;
         }
     }
 
-    return result; // Sortie de boucle : l'utilisateur a entré un nombre pur, on renvoie le score final
+    return result;
 }
 
 int question_math(int a, int b, char op, int result)
 {
+	int temp_int = rand()%1;
 	if (a == b && op == '*') {
-		printf("%d² = ", a);
+		if (temp_int) {printf("%d² = ", a);}
+		else if (!temp_int) {printf("%d %c %d = ", a, op, b);}
 	} else if (result == b && op == '/') {
-		printf("√%d = ", a);
+		if (temp_int) {printf("√%d = ", a);}
+		else if (!temp_int) {printf("%d %c %d = ", a, op, b);}
 	} else {
 		printf("%d %c %d = ", a, op, b);
 	}

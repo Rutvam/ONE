@@ -10,13 +10,13 @@
         char *home = getenv("HOME");
         if (file == 'D') {
             if (home != NULL) {
-                snprintf(path_out, max_len, "%s/CODE/ONE-v1/MATIERE/ENGLISH/DATA.json", home);
+                snprintf(path_out, max_len, "%s/CODE/ONE/MATIERE/ENGLISH/DATA.json", home);
             } else {
                 strncpy(path_out, "DATA.json", max_len);
             }
         } else if (file == 'P') {
             if (home != NULL) {
-                snprintf(path_out, max_len, "%s/CODE/ONE-v1/Profil.json", home);
+                snprintf(path_out, max_len, "%s/CODE/ONE/Profil.json", home);
             } else {
                 strncpy(path_out, "Profil.json", max_len);
             }
@@ -27,9 +27,9 @@
     {
         char home[] = "C:\\user\\rutvam55";
         if (file == 'D') {
-            snprintf(path_out, max_len, "%s\\CODE\\ONE-v1\\MATIERE\\ENGLISH\\DATA.json", home);
+            snprintf(path_out, max_len, "%s\\CODE\\ONE\\MATIERE\\ENGLISH\\DATA.json", home);
         } else if (file == 'P') {
-            snprintf(path_out, max_len, "%s\\CODE\\ONE-v1\\Profil.json", home);
+            snprintf(path_out, max_len, "%s\\CODE\\ONE\\Profil.json", home);
         }
     }
 #else
@@ -44,12 +44,13 @@
 #endif
 int ouverture_du_json(char path[128], cJSON **json)
 {
-    FILE *fichier = fopen(path, "r");
+	FILE *fichier = fopen(path, "r");
     if (fichier == NULL)
     {
         printf("Erreur: Impossible d'ouvrir le fichier.\n");
-        printf("chemin: \"%s\"\n", path);
-        return 1;
+    	printf("chemin: \"%s\"\n", path);
+        printf("Creation du fichier manquant ...\n");
+        fichier = fopen(path, "w");
     }
 
     fseek(fichier, 0, SEEK_END);
@@ -73,6 +74,11 @@ int ouverture_du_json(char path[128], cJSON **json)
     {
         printf("Erreur lors du parsing du JSON.\n");
         printf("chemin: \"%s\"\n", path);
+        const char *erreur = cJSON_GetErrorPtr();
+        if (erreur != NULL)
+        {
+        	printf("Erreur près de: %s\n", erreur);
+        }
         return 1;
     }
     return 0;

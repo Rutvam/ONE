@@ -3,21 +3,23 @@
 #include <cjson/cJSON.h>
 #include <time.h>
 #include <string.h>
-#include "json.h"
-#include "/home/rutvam55/CODE/ONE-v1/MATIERE/ENGLISH/english.h"
-#include "/home/rutvam55/CODE/ONE-v1/MATIERE/MATH/math.h"
-void cls() {
+#include "/home/rutvam55/CODE/ONE/json.h"
+#include "/home/rutvam55/CODE/ONE/MATIERE/ENGLISH/english.h"
+#include "/home/rutvam55/CODE/ONE/MATIERE/MATH/math.h"
+void clear() {
     printf("\033[H\033[2J");
     fflush(stdout);
 }
 
 int main(int argc, char *argv[])
 {
-    char path_DATA_json[128];
+	char path_DATA_json[128];
     char path_Profil_json[128];
-    
+    printf("Recherche du fichier Data.json");
     recherch(path_DATA_json, sizeof(path_DATA_json), 'D');
+    printf("Recherche du fichier Profil.json");
     recherch(path_Profil_json, sizeof(path_Profil_json), 'P');
+    clear();
 
     char on[20] = "\033[1;32mON\033[0m";
     char off[21] = "\033[1;31mOFF\033[0m";
@@ -42,15 +44,16 @@ int main(int argc, char *argv[])
 			int j = i + 1;
             if (!strcmp(argv[i], "English")) {
                 bouton_english = 1;
-                printf("ENLISH: %s\n", on);
-                if (!strcmp(argv[j], "verb")) {
+                printf("ENGLISH: %s\n", on);
+                if (j < argc && !strcmp(argv[j], "verb")) {
                 	bouton_english_verb = 1;
                 	printf("\tVerb: %s\n", on);
+                	i++;
                 }
             } else if (!strcmp(argv[i], "math")) {
                 bouton_math = 1;
                 printf("MATH: %s\n", on);
-                if (!strcmp(argv[j], "basic")) {
+                if (j < argc && !strcmp(argv[j], "basic")) {
                     bouton_math_basic = 1;
                 	printf("\tBasic (+ / * -): %s\n", on);
                 }
@@ -130,7 +133,7 @@ int main(int argc, char *argv[])
 	int condition = 0;
 	while (!condition)
 	{
-		cls();
+		clear();
 		switch (bouton_english)
 		{
 			case 0:
@@ -206,7 +209,7 @@ int main(int argc, char *argv[])
 
 
     int nombre_de_question = 0;
-    cls();
+    clear();
     if(!mode_infini && mode_normal){
         int nombre = 0;
         printf("Combien de question?\n>>");
@@ -228,38 +231,20 @@ int main(int argc, char *argv[])
         {
 			int value = -2;
 			if ((choix[0][0] && choix[0][1]) || (choix[1][0] && choix[1][1])) {
-				int continu = 1;
-				while (continu)
-				{
-					int temp_int = rand()%2;
-					switch (choix[temp_int][0])
-					{
-						case 1:
-							switch (choix[temp_int][1])
-							{
-								case 1:
-									if (bouton_english) {
-										value = question_english(json);
-									} else if (bouton_math) {
-										int a;
-										int b;
-										char op;
-										int result;
-										random_value(&a, &b, &op);
-										result = opperation_basic(a, b, op);
-										value = question_math(a, b, op, result);
-									}
-									break;
-								case 0:
-									temp_int = rand()%2;
-									break;
-							}
-							continu = 0;
-							break;
-						case 0:
-							temp_int = rand()%2;
-							break;
-					}
+				int temp_int = rand()%2;
+				if (!temp_int && bouton_english) {
+					value = question_english(json);
+				} else if (temp_int && bouton_math) {
+					int a;
+					int b;
+					char op;
+					int result;
+					random_value(&a, &b, &op);
+					result = opperation_basic(a, b, op);
+					value = question_math(a, b, op, result);
+				} else {
+					i--;
+					value = 0;
 				}
 			} else {
 				printf("ERROR: aucune matiere choisi.");
@@ -293,39 +278,21 @@ int main(int argc, char *argv[])
         while(continu)
         {
 			if ((choix[0][0] && choix[0][1]) || (choix[1][0] && choix[1][1])) {
-				while (continu)
-				{
-					int temp_int = rand()%2;
-					switch (choix[temp_int][0])
-					{
-						case 1:
-							switch (choix[temp_int][1])
-							{
-								case 1:
-									if (bouton_english) {
-										value = question_english(json);
-									} else if (bouton_math) {
-										int a;
-										int b;
-										char op;
-										int result;
-										random_value(&a, &b, &op);
-										result = opperation_basic(a, b, op);
-										value = question_math(a, b, op, result);
-									}
-									break;
-								case 0:
-									temp_int = rand()%2;
-									break;
-							}
-							continu = 0;
-							break;
-						case 0:
-							temp_int = rand()%2;
-							break;
-					}
+				int temp_int = rand()%2;
+				if (!temp_int && bouton_english) {
+					value = question_english(json);
+				} else if (temp_int && bouton_math) {
+					int a;
+					int b;
+					char op;
+					int result;
+					random_value(&a, &b, &op);
+					result = opperation_basic(a, b, op);
+					value = question_math(a, b, op, result);
+				} else {
+					value = 0;
+					nombre_de_question--;
 				}
-				continu = 1;
 			} else {
 				printf("ERROR: aucune matiere choisi.");
 				exit(0);
@@ -343,7 +310,6 @@ int main(int argc, char *argv[])
            	    case 0: 
                	    break;
                 case -1:
-   	                score--;
    	                continu= 0;
        	            break;
        	        case -2:
@@ -364,17 +330,23 @@ int main(int argc, char *argv[])
     }
     // --- LOGIQUE DE PROGRESSION & LEVEL UP ---
     int xp_gagne = 0;
-    if(pourcentage >= 75){
-        int bonus = score + level + 100;
-        xp_gagne = (score * nombre_de_question) + bonus;
-    } else if (75 > pourcentage && pourcentage > 50) {
+    if (mode_normal && !mode_infini) {
+	    if(pourcentage >= 75){
+        	int bonus = score + level + 100;
+        	xp_gagne = (score * nombre_de_question) + bonus;
+    	} else if (75 > pourcentage && pourcentage > 50) {
+    		int bonus = score + level;
+    		xp_gagne = (score * nombre_de_question) + bonus;
+    	} else if (pourcentage == 50) {
+    		xp_gagne = score * nombre_de_question;
+    	} else {
+    	    xp_gagne = score;
+    	}
+    } else if (!mode_normal && mode_infini) {
     	int bonus = score + level;
-    	xp_gagne = (score * nombre_de_question) + bonus;
-    } else if (pourcentage == 50) {
-    	xp_gagne = score * nombre_de_question;
-    } else {
-        xp_gagne = score;
-    }
+    	score++;
+		xp_gagne = score * nombre_de_question + bonus;
+	}
     
     xp += xp_gagne;
     printf("Vous avez gagné %d XP ! (Total: %d XP)\n", xp_gagne, xp);
