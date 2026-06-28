@@ -4,12 +4,13 @@
 #include <time.h>
 #include <string.h>
 #include "./core/json.h"
-#include "./MATIERE/ENGLISH/english.h"
-#include "./MATIERE/MATH/math.h"
+#include "./core/gestion_des_quiz.h"
 void clear() {
     printf("\033[H\033[2J");
     fflush(stdout);
 }
+
+
 
 int main(int argc, char *argv[])
 {
@@ -203,165 +204,29 @@ int main(int argc, char *argv[])
 		}
 		choix[0][0] = bouton_english;
 		choix[0][1] = bouton_english_verb;
+
 		choix[1][0] = bouton_math;
 		choix[1][1] = bouton_math_basic;
 	}
 
-
-    int nombre_de_question = 0;
+	/*=============*/
+	/* PARTIE QUIZ */
+	/*=============*/
     clear();
+    int nombre_de_question = 0;
     if(!mode_infini && mode_normal){
-        int nombre = 0;
-        printf("Combien de question?\n>>");
-        while(scanf("%d", &nombre) != 1 || nombre < 1)
-        {
-        	printf("Erreur: entrer un nombre!\n");
-        	int clean;
-        	while ((clean = getchar()) != '\n' && clean != EOF);
-
-        	nombre = 0;
-        	printf("Combien de question?\n>>");
-        }
-        nombre_de_question = nombre;
-            
-        int c;
-        while ((c = getchar()) != '\n' && c != EOF); // Nettoyage indispensable
-
-        for(int i = 0; i < nombre; i++)
-        {
-			int value = -2;
-			if ((choix[0][0] && choix[0][1]) || (choix[1][0] && choix[1][1])) {
-				int temp_int = rand()%2;
-				if (!temp_int && bouton_english) {
-					value = question_english(json);
-				} else if (temp_int && bouton_math) {
-					int a;
-					int b;
-					char op;
-					int result;
-					random_value(&a, &b, &op);
-					result = opperation_basic(a, b, op);
-					value = question_math(a, b, op, result);
-				} else {
-					i--;
-					value = 0;
-				}
-			} else {
-				printf("ERROR: aucune matiere choisi.");
-				exit(0);
-			}
-	        switch(value)
-    	    {
-    	    	case 2:
-					cJSON_Delete(json);
-					cJSON_Delete(Profil_json);
-					return 0;
-                case 1: 
-   	                score++;
-       	            break;
-           	    case 0: 
-               	    break;
-                case -1:
-   	                score--;
-       	            break;
-       	        case -2:
-    				cJSON_Delete(json);
-					cJSON_Delete(Profil_json);
-       	            return 0;
-           	    default:
-               	    break;
-            }
-        }
+		quiz_normal(choix, &score, &nombre_de_question, json, Profil_json);
     } else if(mode_infini && !mode_normal){
-        int continu = 1;
-        int value = -2;
-        while(continu)
-        {
-			if ((choix[0][0] && choix[0][1]) || (choix[1][0] && choix[1][1])) {
-				int temp_int = rand()%2;
-				if (!temp_int && bouton_english) {
-					value = question_english(json);
-				} else if (temp_int && bouton_math) {
-					int a;
-					int b;
-					char op;
-					int result;
-					random_value(&a, &b, &op);
-					result = opperation_basic(a, b, op);
-					value = question_math(a, b, op, result);
-				} else {
-					value = 0;
-					nombre_de_question--;
-				}
-			} else {
-				printf("ERROR: aucune matiere choisi.");
-				exit(0);
-			}
-            nombre_de_question++;
-	        switch(value)
-    	    {
-    	    	case 2:
-					cJSON_Delete(json);
-					cJSON_Delete(Profil_json);
-					return 0;
-                case 1: 
-   	                score++;
-       	            break;
-           	    case 0: 
-               	    break;
-                case -1:
-   	                continu= 0;
-       	            break;
-       	        case -2:
-    				cJSON_Delete(json);
-					cJSON_Delete(Profil_json);
-       	            exit(0);
-           	    default:
-               	    break;
-            }
-        }
-    }
-    float pourcentage = 0;
-    if ( score >= 1 || nombre_de_question >= 1) {
-	    pourcentage = ((float)score/nombre_de_question)*100;
-    	printf("\nWow ... Tu as un score de %d en %d question(s)!\nC'est un taux de reussite de %3f%%\n", score, nombre_de_question, pourcentage);
-    } else {
-    	printf("\nAi ... La prochaine fois cela ira mieux.\nTu peut egalment esseiler le mode normal. même si il y a une mauvaise reponce le quiz continue.\n");
-    }
-    // --- LOGIQUE DE PROGRESSION & LEVEL UP ---
-    int xp_gagne = 0;
-    if (mode_normal && !mode_infini) {
-	    if(pourcentage >= 75){
-        	int bonus = score + level + 100;
-        	xp_gagne = (score * nombre_de_question) + bonus;
-    	} else if (75 > pourcentage && pourcentage > 50) {
-    		int bonus = score + level;
-    		xp_gagne = (score * nombre_de_question) + bonus;
-    	} else if (pourcentage == 50) {
-    		xp_gagne = score * nombre_de_question;
-    	} else {
-    	    xp_gagne = score;
-    	}
-    } else if (!mode_normal && mode_infini) {
-    	int bonus = score + level;
-    	score++;
-		xp_gagne = score * nombre_de_question + bonus;
-	}
-    
-    xp += xp_gagne;
-    printf("Vous avez gagné %d XP ! (Total: %d XP)\n", xp_gagne, xp);
-
-    // Boucle tant qu'on a assez d'XP pour monter de niveau
-    while (xp >= level * 1500) {
-        xp = xp - (level * 1500); // Déduction de l'XP consommée pour le passage
-        level++;
-        printf("\033[1;33mUP ! Tu passes au Niveau %d !\033[0m\n", level);
+		quiz_infini(choix, &score, &nombre_de_question, json, Profil_json);
     }
 
-    if(score > score_max){
-        score_max = score;
-        printf("\033[1;36mNouveau score maximal pour %s: %d !\033[0m\n", username, score_max);
-    }
+	/*========================================*/
+	/* PRESENTATION DE LA FIN AVEC SAUVEGARDE */
+	/*========================================*/
+	char mode;
+	if (mode_infini) {mode = 'i';}
+	 else {mode = 'n';};
+	gamification(&score, &score_max, &level, &xp, nombre_de_question, mode);
     
     // --- MISE À JOUR DANS LA STRUCTURE JSON ET SAUVEGARDE ---
     cJSON_SetNumberValue(cJSON_GetObjectItemCaseSensitive(user, "xp"), xp);
