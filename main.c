@@ -3,9 +3,9 @@
 #include <cjson/cJSON.h>
 #include <time.h>
 #include <string.h>
-#include "/home/rutvam55/CODE/ONE/json.h"
-#include "/home/rutvam55/CODE/ONE/MATIERE/ENGLISH/english.h"
-#include "/home/rutvam55/CODE/ONE/MATIERE/MATH/math.h"
+#include "./core/json.h"
+#include "./MATIERE/ENGLISH/english.h"
+#include "./MATIERE/MATH/math.h"
 void clear() {
     printf("\033[H\033[2J");
     fflush(stdout);
@@ -15,7 +15,7 @@ int main(int argc, char *argv[])
 {
 	char path_DATA_json[128];
     char path_Profil_json[128];
-    printf("Recherche du fichier Data.json");
+    printf("Recherche du fichier Data_en.json");
     recherch(path_DATA_json, sizeof(path_DATA_json), 'D');
     printf("Recherche du fichier Profil.json");
     recherch(path_Profil_json, sizeof(path_Profil_json), 'P');

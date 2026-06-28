@@ -10,13 +10,13 @@
         char *home = getenv("HOME");
         if (file == 'D') {
             if (home != NULL) {
-                snprintf(path_out, max_len, "%s/CODE/ONE/MATIERE/ENGLISH/DATA.json", home);
+                snprintf(path_out, max_len, "%s/CODE/ONE/tools/DATA_en.json", home);
             } else {
                 strncpy(path_out, "DATA.json", max_len);
             }
         } else if (file == 'P') {
             if (home != NULL) {
-                snprintf(path_out, max_len, "%s/CODE/ONE/Profil.json", home);
+                snprintf(path_out, max_len, "%s/CODE/ONE/data/Profil.json", home);
             } else {
                 strncpy(path_out, "Profil.json", max_len);
             }
@@ -27,18 +27,18 @@
     {
         char home[] = "C:\\user\\rutvam55";
         if (file == 'D') {
-            snprintf(path_out, max_len, "%s\\CODE\\ONE\\MATIERE\\ENGLISH\\DATA.json", home);
+            snprintf(path_out, max_len, "%s\\CODE\\ONE\\tools\\DATA_en.json", home);
         } else if (file == 'P') {
-            snprintf(path_out, max_len, "%s\\CODE\\ONE\\Profil.json", home);
+            snprintf(path_out, max_len, "%s\\CODE\\ONE\\data\\Profil.json", home);
         }
     }
 #else
     void recherch(char *path_out, size_t max_len, char file)
     {
         if (file == 'D') {
-            snprintf(path_out, max_len, "./MATIERE/ENGLISH/DATA.json");
+            snprintf(path_out, max_len, "../tools/DATA_en.json");
         } else if (file == 'P') {
-            snprintf(path_out, max_len, "./Profil.json");
+Ob            snprintf(path_out, max_len, "../data/Profil.json");
         }
     }
 #endif
