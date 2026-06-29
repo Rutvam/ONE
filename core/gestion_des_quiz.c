@@ -136,7 +136,7 @@ void gamification(int *score, int *score_max, int *level, int *xp, int nombre_de
     }
 }
 
-void quiz_normal(int choix[2][2], int *score, int *nombre_de_question, cJSON *json, cJSON *Profil_json) {
+void quiz_normal(int choix[3][2], int *score, int *nombre_de_question, cJSON *json, cJSON *Profil_json) {
 	printf("score: %d\n", *score);
     int nombre = 0;
     printf("Combien de question?\n>>");
@@ -157,11 +157,11 @@ void quiz_normal(int choix[2][2], int *score, int *nombre_de_question, cJSON *js
     for(int i = 0; i < nombre; i++)
     {
 		int value = -2;
-		if ((choix[0][0] && choix[0][1]) || (choix[1][0] && choix[1][1])) {
+		if ((choix[1][0] && choix[1][1]) || (choix[2][0] && choix[2][1])) {
 			int temp_int = rand()%2;
-			if (!temp_int && choix[0][0] && choix[0][1]) {
+			if (!temp_int && choix[1][0] && choix[1][1]) {
 				value = question_english(json);
-			} else if (temp_int && choix[1][0] && choix[1][1]) {
+			} else if (temp_int && choix[2][0] && choix[2][1]) {
 				int a;
 				int b;
 				char op;
@@ -200,18 +200,18 @@ void quiz_normal(int choix[2][2], int *score, int *nombre_de_question, cJSON *js
         }
     }
 }
-void quiz_infini(int choix[2][2], int *score, int *nombre_de_question, cJSON *json, cJSON *Profil_json)
+void quiz_infini(int choix[3][2], int *score, int *nombre_de_question, cJSON *json, cJSON *Profil_json)
 {
 	printf("score: %d\n", *score);
     int continu = 1;
     int value = -2;
     while(continu)
     {
-		if ((choix[0][0] && choix[0][1]) || (choix[1][0] && choix[1][1])) {
+		if ((choix[1][0] && choix[1][1]) || (choix[2][0] && choix[2][1])) {
 			int temp_int = rand()%2;
-			if (!temp_int && choix[0][0] && choix[0][1]) { // bouton anglais et verb active
+			if (!temp_int && choix[1][0] && choix[1][1]) { // bouton anglais et verb active
 				value = question_english(json);
-			} else if (temp_int && choix[1][0] && choix[1][1]) {
+			} else if (temp_int && choix[2][0] && choix[2][1]) {
 				int a;
 				int b;
 				char op;
