@@ -1363,5 +1363,590 @@
             "we": "will cost",
             "they": "will cost"
         }
+    },
+    "cut": {
+        "present simple": {
+            "I": "cut",
+            "you": "cut",
+            "he": "cuts",
+            "she": "cuts",
+            "it": "cuts",
+            "we": "cut",
+            "they": "cut"
+        },
+        "present continuous": {
+            "I": "am cutting",
+            "you": "are cutting",
+            "he": "is cutting",
+            "she": "is cutting",
+            "it": "is cutting",
+            "we": "are cutting",
+            "they": "are cutting"
+        },
+        "present perfect": {
+            "I": "have cut",
+            "you": "have cut",
+            "he": "has cut",
+            "she": "has cut",
+            "it": "has cut",
+            "we": "have cut",
+            "they": "have cut"
+        },
+        "past simple": {
+            "I": "cut",
+            "you": "cut",
+            "he": "cut",
+            "she": "cut",
+            "it": "cut",
+            "we": "cut",
+            "they": "cut"
+        },
+        "past continuous": {
+            "I": "was cutting",
+            "you": "were cutting",
+            "he": "was cutting",
+            "she": "was cutting",
+            "it": "was cutting",
+            "we": "were cutting",
+            "they": "were cutting"
+        },
+        "going to futur": {
+            "I": "am going to cut",
+            "you": "are going to cut",
+            "he": "is going to cut",
+            "she": "is going to cut",
+            "it": "is going to cut",
+            "we": "are going to cut",
+            "they": "are going to cut"
+        },
+        "will futur": {
+            "I": "will cut",
+            "you": "will cut",
+            "he": "will cut",
+            "she": "will cut",
+            "it": "will cut",
+            "we": "will cut",
+            "they": "will cut"
+        }
+    },
+    "deal": {
+        "present simple": {
+            "I": "deal",
+            "you": "deal",
+            "he": "deals",
+            "she": "deals",
+            "it": "deals",
+            "we": "deal",
+            "they": "deal"
+        },
+        "present continuous": {
+            "I": "am dealing",
+            "you": "are dealing",
+            "he": "is dealing",
+            "she": "is dealing",
+            "it": "is dealing",
+            "we": "are dealing",
+            "they": "are dealing"
+        },
+        "present perfect": {
+            "I": "have dealt",
+            "you": "have dealt",
+            "he": "has dealt",
+            "she": "has dealt",
+            "it": "has dealt",
+            "we": "have dealt",
+            "they": "have dealt"
+        },
+        "past simple": {
+            "I": "dealt",
+            "you": "dealt",
+            "he": "dealt",
+            "she": "dealt",
+            "it": "dealt",
+            "we": "dealt",
+            "they": "dealt"
+        },
+        "past continuous": {
+            "I": "was dealing",
+            "you": "were dealing",
+            "he": "was dealing",
+            "she": "was dealing",
+            "it": "was dealing",
+            "we": "were dealing",
+            "they": "were dealing"
+        },
+        "going to futur": {
+            "I": "am going to deal",
+            "you": "are going to deal",
+            "he": "is going to deal",
+            "she": "is going to deal",
+            "it": "is going to deal",
+            "we": "are going to deal",
+            "they": "are going to deal"
+        },
+        "will futur": {
+            "I": "will deal",
+            "you": "will deal",
+            "he": "will deal",
+            "she": "will deal",
+            "it": "will deal",
+            "we": "will deal",
+            "they": "will deal"
+        }
+    },
+    "draw": {
+        "present simple": {
+            "I": "draw",
+            "you": "draw",
+            "he": "draws",
+            "she": "draws",
+            "it": "draws",
+            "we": "draw",
+            "they": "draw"
+        },
+        "present continuous": {
+            "I": "am drawing",
+            "you": "are drawing",
+            "he": "is drawing",
+            "she": "is drawing",
+            "it": "is drawing",
+            "we": "are drawing",
+            "they": "are drawing"
+        },
+        "present perfect": {
+            "I": "have drawn",
+            "you": "have drawn",
+            "he": "has drawn",
+            "she": "has drawn",
+            "it": "has drawn",
+            "we": "have drawn",
+            "they": "have drawn"
+        },
+        "past simple": {
+            "I": "drew",
+            "you": "drew",
+            "he": "drew",
+            "she": "drew",
+            "it": "drew",
+            "we": "drew",
+            "they": "drew"
+        },
+        "past continuous": {
+            "I": "was drawing",
+            "you": "were drawing",
+            "he": "was drawing",
+            "she": "was drawing",
+            "it": "was drawing",
+            "we": "were drawing",
+            "they": "were drawing"
+        },
+        "going to futur": {
+            "I": "am going to draw",
+            "you": "are going to draw",
+            "he": "is going to draw",
+            "she": "is going to draw",
+            "it": "is going to draw",
+            "we": "are going to draw",
+            "they": "are going to draw"
+        },
+        "will futur": {
+            "I": "will draw",
+            "you": "will draw",
+            "he": "will draw",
+            "she": "will draw",
+            "it": "will draw",
+            "we": "will draw",
+            "they": "will draw"
+        }
+    },
+    "dream": {
+        "present simple": {
+            "I": "dream",
+            "you": "dream",
+            "he": "dreams",
+            "she": "dreams",
+            "it": "dreams",
+            "we": "dream",
+            "they": "dream"
+        },
+        "present continuous": {
+            "I": "am dreaming",
+            "you": "are dreaming",
+            "he": "is dreaming",
+            "she": "is dreaming",
+            "it": "is dreaming",
+            "we": "are dreaming",
+            "they": "are dreaming"
+        },
+        "present perfect": {
+            "I": "have dreamt",
+            "you": "have dreamt",
+            "he": "has dreamt",
+            "she": "has dreamt",
+            "it": "has dreamt",
+            "we": "have dreamt",
+            "they": "have dreamt"
+        },
+        "past simple": {
+            "I": "dreamt",
+            "you": "dreamt",
+            "he": "dreamt",
+            "she": "dreamt",
+            "it": "dreamt",
+            "we": "dreamt",
+            "they": "dreamt"
+        },
+        "past continuous": {
+            "I": "was dreaming",
+            "you": "were dreaming",
+            "he": "was dreaming",
+            "she": "was dreaming",
+            "it": "was dreaming",
+            "we": "were dreaming",
+            "they": "were dreaming"
+        },
+        "going to futur": {
+            "I": "am going to dream",
+            "you": "are going to dream",
+            "he": "is going to dream",
+            "she": "is going to dream",
+            "it": "is going to dream",
+            "we": "are going to dream",
+            "they": "are going to dream"
+        },
+        "will futur": {
+            "I": "will dream",
+            "you": "will dream",
+            "he": "will dream",
+            "she": "will dream",
+            "it": "will dream",
+            "we": "will dream",
+            "they": "will dream"
+        }
+    },
+    "fall": {
+        "present simple": {
+            "I": "fall",
+            "you": "fall",
+            "he": "falls",
+            "she": "falls",
+            "it": "falls",
+            "we": "fall",
+            "they": "fall"
+        },
+        "present continuous": {
+            "I": "am falling",
+            "you": "are falling",
+            "he": "is falling",
+            "she": "is falling",
+            "it": "is falling",
+            "we": "are falling",
+            "they": "are falling"
+        },
+        "present perfect": {
+            "I": "have fallen",
+            "you": "have fallen",
+            "he": "has fallen",
+            "she": "has fallen",
+            "it": "has fallen",
+            "we": "have fallen",
+            "they": "have fallen"
+        },
+        "past simple": {
+            "I": "fell",
+            "you": "fell",
+            "he": "fell",
+            "she": "fell",
+            "it": "fell",
+            "we": "fell",
+            "they": "fell"
+        },
+        "past continuous": {
+            "I": "was falling",
+            "you": "were falling",
+            "he": "was falling",
+            "she": "was falling",
+            "it": "was falling",
+            "we": "were falling",
+            "they": "were falling"
+        },
+        "going to futur": {
+            "I": "am going to fall",
+            "you": "are going to fall",
+            "he": "is going to fall",
+            "she": "is going to fall",
+            "it": "is going to fall",
+            "we": "are going to fall",
+            "they": "are going to fall"
+        },
+        "will futur": {
+            "I": "will fall",
+            "you": "will fall",
+            "he": "will fall",
+            "she": "will fall",
+            "it": "will fall",
+            "we": "will fall",
+            "they": "will fall"
+        }
+    },
+    "feed": {
+        "present simple": {
+            "I": "feed",
+            "you": "feed",
+            "he": "feeds",
+            "she": "feeds",
+            "it": "feeds",
+            "we": "feed",
+            "they": "feed"
+        },
+        "present continuous": {
+            "I": "am feeding",
+            "you": "are feeding",
+            "he": "is feeding",
+            "she": "is feeding",
+            "it": "is feeding",
+            "we": "are feeding",
+            "they": "are feeding"
+        },
+        "present perfect": {
+            "I": "have fed",
+            "you": "have fed",
+            "he": "has fed",
+            "she": "has fed",
+            "it": "has fed",
+            "we": "have fed",
+            "they": "have fed"
+        },
+        "past simple": {
+            "I": "fed",
+            "you": "fed",
+            "he": "fed",
+            "she": "fed",
+            "it": "fed",
+            "we": "fed",
+            "they": "fed"
+        },
+        "past continuous": {
+            "I": "was feeding",
+            "you": "were feeding",
+            "he": "was feeding",
+            "she": "was feeding",
+            "it": "was feeding",
+            "we": "were feeding",
+            "they": "were feeding"
+        },
+        "going to futur": {
+            "I": "am going to feed",
+            "you": "are going to feed",
+            "he": "is going to feed",
+            "she": "is going to feed",
+            "it": "is going to feed",
+            "we": "are going to feed",
+            "they": "are going to feed"
+        },
+        "will futur": {
+            "I": "will feed",
+            "you": "will feed",
+            "he": "will feed",
+            "she": "will feed",
+            "it": "will feed",
+            "we": "will feed",
+            "they": "will feed"
+        }
+    },
+    "feel": {
+        "present simple": {
+            "I": "feel",
+            "you": "feel",
+            "he": "feels",
+            "she": "feels",
+            "it": "feels",
+            "we": "feel",
+            "they": "feel"
+        },
+        "present continuous": {
+            "I": "am feeling",
+            "you": "are feeling",
+            "he": "is feeling",
+            "she": "is feeling",
+            "it": "is feeling",
+            "we": "are feeling",
+            "they": "are feeling"
+        },
+        "present perfect": {
+            "I": "have felt",
+            "you": "have felt",
+            "he": "has felt",
+            "she": "has felt",
+            "it": "has felt",
+            "we": "have felt",
+            "they": "have felt"
+        },
+        "past simple": {
+            "I": "felt",
+            "you": "felt",
+            "he": "felt",
+            "she": "felt",
+            "it": "felt",
+            "we": "felt",
+            "they": "felt"
+        },
+        "past continuous": {
+            "I": "was feeling",
+            "you": "were feeling",
+            "he": "was feeling",
+            "she": "was feeling",
+            "it": "was feeling",
+            "we": "were feeling",
+            "they": "were feeling"
+        },
+        "going to futur": {
+            "I": "am going to feel",
+            "you": "are going to feel",
+            "he": "is going to feel",
+            "she": "is going to feel",
+            "it": "is going to feel",
+            "we": "are going to feel",
+            "they": "are going to feel"
+        },
+        "will futur": {
+            "I": "will feel",
+            "you": "will feel",
+            "he": "will feel",
+            "she": "will feel",
+            "it": "will feel",
+            "we": "will feel",
+            "they": "will feel"
+        }
+    },
+    "fight": {
+        "present simple": {
+            "I": "fight",
+            "you": "fight",
+            "he": "fights",
+            "she": "fights",
+            "it": "fights",
+            "we": "fight",
+            "they": "fight"
+        },
+        "present continuous": {
+            "I": "am fighting",
+            "you": "are fighting",
+            "he": "is fighting",
+            "she": "is fighting",
+            "it": "is fighting",
+            "we": "are fighting",
+            "they": "are fighting"
+        },
+        "present perfect": {
+            "I": "have fought",
+            "you": "have fought",
+            "he": "has fought",
+            "she": "has fought",
+            "it": "has fought",
+            "we": "have fought",
+            "they": "have fought"
+        },
+        "past simple": {
+            "I": "fought",
+            "you": "fought",
+            "he": "fought",
+            "she": "fought",
+            "it": "fought",
+            "we": "fought",
+            "they": "fought"
+        },
+        "past continuous": {
+            "I": "was fighting",
+            "you": "were fighting",
+            "he": "was fighting",
+            "she": "was fighting",
+            "it": "was fighting",
+            "we": "were fighting",
+            "they": "were fighting"
+        },
+        "going to futur": {
+            "I": "am going to fight",
+            "you": "are going to fight",
+            "he": "is going to fight",
+            "she": "is going to fight",
+            "it": "is going to fight",
+            "we": "are going to fight",
+            "they": "are going to fight"
+        },
+        "will futur": {
+            "I": "will fight",
+            "you": "will fight",
+            "he": "will fight",
+            "she": "will fight",
+            "it": "will fight",
+            "we": "will fight",
+            "they": "will fight"
+        }
+    },
+    "fly": {
+        "present simple": {
+            "I": "fly",
+            "you": "fly",
+            "he": "flies",
+            "she": "flies",
+            "it": "flies",
+            "we": "fly",
+            "they": "fly"
+        },
+        "present continuous": {
+            "I": "am flying",
+            "you": "are flying",
+            "he": "is flying",
+            "she": "is flying",
+            "it": "is flying",
+            "we": "are flying",
+            "they": "are flying"
+        },
+        "present perfect": {
+            "I": "have flown",
+            "you": "have flown",
+            "he": "has flown",
+            "she": "has flown",
+            "it": "has flown",
+            "we": "have flown",
+            "they": "have flown"
+        },
+        "past simple": {
+            "I": "flew",
+            "you": "flew",
+            "he": "flew",
+            "she": "flew",
+            "it": "flew",
+            "we": "flew",
+            "they": "flew"
+        },
+        "past continuous": {
+            "I": "was flying",
+            "you": "were flying",
+            "he": "was flying",
+            "she": "was flying",
+            "it": "was flying",
+            "we": "were flying",
+            "they": "were flying"
+        },
+        "going to futur": {
+            "I": "am going to fly",
+            "you": "are going to fly",
+            "he": "is going to fly",
+            "she": "is going to fly",
+            "it": "is going to fly",
+            "we": "are going to fly",
+            "they": "are going to fly"
+        },
+        "will futur": {
+            "I": "will fly",
+            "you": "will fly",
+            "he": "will fly",
+            "she": "will fly",
+            "it": "will fly",
+            "we": "will fly",
+            "they": "will fly"
+        }
     }
 }

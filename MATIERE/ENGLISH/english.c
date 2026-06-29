@@ -43,7 +43,7 @@ int question_english(cJSON *json)
 				}
 
 			} else {
-				printf("Le verb ne contient aucun temp.\nVeuillez supprimer le fichier ./MATIERE/ENGLISH/DATA.json puis utiliser le fichier ./MATIERE/ENGLISH/dataC.py pour remplir et recrée le fichier ./MATIERE/ENGLISH/DATA.json facilment.");
+				printf("Le verb ne contient aucun temp.\nVeuillez supprimer le fichier ./data/DATA.json puis utiliser le fichier ./MATIERE/ENGLISH/dataC.py pour remplir et recrée le fichier ./MATIERE/ENGLISH/DATA.json facilment.");
 				exit(0);
 			}
 			

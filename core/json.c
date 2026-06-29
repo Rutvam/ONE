@@ -10,7 +10,7 @@
         char *home = getenv("HOME");
         if (file == 'D') {
             if (home != NULL) {
-                snprintf(path_out, max_len, "%s/CODE/ONE/tools/DATA_en.json", home);
+                snprintf(path_out, max_len, "%s/CODE/ONE/data/DATA_en.json", home);
             } else {
                 strncpy(path_out, "DATA.json", max_len);
             }
@@ -27,7 +27,7 @@
     {
         char home[] = "C:\\user\\rutvam55";
         if (file == 'D') {
-            snprintf(path_out, max_len, "%s\\CODE\\ONE\\tools\\DATA_en.json", home);
+            snprintf(path_out, max_len, "%s\\CODE\\ONE\\data\\DATA_en.json", home);
         } else if (file == 'P') {
             snprintf(path_out, max_len, "%s\\CODE\\ONE\\data\\Profil.json", home);
         }
@@ -36,7 +36,7 @@
     void recherch(char *path_out, size_t max_len, char file)
     {
         if (file == 'D') {
-            snprintf(path_out, max_len, "../tools/DATA_en.json");
+            snprintf(path_out, max_len, "../data/DATA_en.json");
         } else if (file == 'P') {
 Ob            snprintf(path_out, max_len, "../data/Profil.json");
         }
