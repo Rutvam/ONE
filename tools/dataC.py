@@ -2,7 +2,7 @@ import json
 import os
 
 # 2. Bestehende Daten laden
-datei_name = "DATA.json"
+datei_name = "/home/rutvam55/CODE/ONE/data/DATA.json"
 alle_verben = {}
 
 if os.path.exists(datei_name):

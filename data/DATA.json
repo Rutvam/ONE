@@ -1,0 +1,67 @@
+{
+    "be": {
+        "present simple": {
+            "I": "am",
+            "you": "are",
+            "he": "is",
+            "she": "is",
+            "it": "is",
+            "we": "are",
+            "they": "are"
+        },
+        "present continuous": {
+            "I": "am being",
+            "you": "are being",
+            "he": "is being",
+            "she": "is being",
+            "it": "is being",
+            "we": "are being",
+            "they": "are being"
+        },
+        "present perfect": {
+            "I": "have been",
+            "you": "have been",
+            "he": "has been",
+            "she": "has been",
+            "it": "has been",
+            "we": "have been",
+            "they": "have been"
+        },
+        "past simple": {
+            "I": "was",
+            "you": "were",
+            "he": "was",
+            "she": "was",
+            "it": "was",
+            "we": "were",
+            "they": "were"
+        },
+        "past continuous": {
+            "I": "was being",
+            "you": "were being",
+            "he": "was being",
+            "she": "was being",
+            "it": "was being",
+            "we": "were being",
+            "they": "were being"
+        },
+        "going to futur": {
+            "I": "am going to be",
+            "you": "are going to be",
+            "he": "is going to be",
+            "she": "is going to be",
+            "it": "is going to be",
+            "we": "are going to be",
+            "they": "are going to be"
+        },
+        "will futur": {
+            "I": "will be",
+            "you": "will be",
+            "he": "will be",
+            "she": "will be",
+            "it": "will be",
+            "we": "will be",
+            "they": "will be"
+        }
+    }
+}
