@@ -4,11 +4,9 @@
 #include <time.h>
 #include <string.h>
 #include "./core/json.h"
+#include "./core/funktion.h"
 #include "./core/gestion_des_quiz.h"
-void clear() {
-    printf("\033[H\033[2J");
-    fflush(stdout);
-}
+
 
 
 
@@ -26,10 +24,10 @@ int main(int argc, char *argv[])
     char off[21] = "\033[1;31mOFF\033[0m";
 
     int bouton_english = 0;
-    int bouton_english_verb = 0;
+    int bouton_english_verb = 1;
     
 	int bouton_math = 0;
-	int bouton_math_basic = 0;
+	int bouton_math_basic = 1;
 
     int mode_infini = 0;
     int mode_normal = 1;
@@ -127,87 +125,14 @@ int main(int argc, char *argv[])
     }
 
     //Choix de la matiere
-	char state[2][22] = {"\033[1;31mOFF\033[0m", "\033[1;32mON\033[0m"};
-	char answer_char;
-
-	int choix[2][2] = {{bouton_english, bouton_english_verb}, {bouton_math, bouton_math_basic}};
-	int condition = 0;
-	while (!condition)
-	{
-		clear();
-		switch (bouton_english)
-		{
-			case 0:
-				printf("[1] English: %s\n", off);
-				break;
-			case 1:
-				printf("[1] English: %s\n", on);
-				printf("\t[a] verb: %s\n", state[bouton_english_verb]);
-				break;
-		}
-
-		switch (bouton_math)
-		{
-			case 0:
-				printf("[2] math: %s\n", off);
-				break;
-			case 1:
-				printf("[2] math: %s\n", on);
-				printf("\t[a] basic (+ - * /): %s\n", state[bouton_math_basic]);
-				break;
-		}
-			
-		printf("[n] mode normal: %s\n", state[mode_normal]);
-		printf("[i] mode infini: %s\n", state[mode_infini]);
-		printf("Entrer un de ses caractere (c = continue; q = quitter):\n>>");
-		scanf(" %c", &answer_char);
-
-		switch (answer_char)
-		{
-			case 'q':
-				exit(0);
-			case 'a':
-				printf("Entrer le chiffre entre les crochet \"[]\" de la veleur parent:\n>>");
-				char answer_char_2;
-				scanf(" %c", &answer_char_2);
-				switch (answer_char_2)
-				{
-					case '1':
-						bouton_english_verb = !bouton_english_verb;
-						break;
-					case '2':
-						bouton_math_basic = !bouton_math_basic;
-						break;
-				};
-				break;
-			case 'c':
-				if ((choix[0][0] && choix[0][1]) || (choix[1][0] && choix[1][1])) {
-					condition = 1;
-				} else {
-					printf("Erreur: choisier une matière");
-				};
-				break;
-			case 'i':
-				mode_normal = !mode_normal;
-				mode_infini = !mode_infini;
-				break;
-			case 'n':
-				mode_normal = !mode_normal;
-				mode_infini = !mode_infini;
-				break;
-			case '1':
-				bouton_english = !bouton_english;
-				break;
-			case '2':
-				bouton_math = !bouton_math;
-				break;
-		}
-		choix[0][0] = bouton_english;
-		choix[0][1] = bouton_english_verb;
-
-		choix[1][0] = bouton_math;
-		choix[1][1] = bouton_math_basic;
-	}
+	int choix[3][2] = {{mode_infini, mode_normal}, {bouton_english, bouton_english_verb}, {bouton_math, bouton_math_basic}};	
+	table_des_matiere(choix);
+	mode_infini = choix[0][0];
+	mode_normal = choix[0][1];
+	bouton_english = choix[1][0];
+	bouton_english_verb = choix[1][1];
+	bouton_math = choix[2][0];
+	bouton_math_basic = choix[2][1];
 
 	/*=============*/
 	/* PARTIE QUIZ */

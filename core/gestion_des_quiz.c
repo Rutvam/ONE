@@ -1,9 +1,91 @@
 #include <cjson/cJSON.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include "gestion_des_quiz.h"
+#include "./gestion_des_quiz.h"
+#include "./funktion.h"
 #include "../MATIERE/ENGLISH/english.h"
 #include "../MATIERE/MATH/math.h"
+
+void table_des_matiere(int choix[3][2])
+{
+	char off[22] = "\033[1;31mOFF\033[0m";
+	char on[21] = "\033[1;32mON\033[0m";
+	char state[2][22] = {"\033[1;31mOFF\033[0m", "\033[1;32mON\033[0m"};
+	char answer_char;
+
+	int condition = 0;
+	while (!condition)
+	{
+		clear();
+		switch (choix[1][0])
+		{
+			case 0:
+				printf("[1] English: %s\n", off);
+				break;
+			case 1:
+				printf("[1] English: %s\n", on);
+				printf("\t[a] verb: %s\n", state[choix[1][1]]);
+				break;
+		}
+
+		switch (choix[2][0])
+		{
+			case 0:
+				printf("[2] math: %s\n", off);
+				break;
+			case 1:
+				printf("[2] math: %s\n", on);
+				printf("\t[a] basic (+ - * /): %s\n", state[choix[2][1]]);
+				break;
+		}
+			
+		printf("[n] mode normal: %s\n", state[ choix[0][1] ]);
+		printf("[i] mode infini: %s\n", state[ choix[0][0] ]);
+		printf("Entrer un de ses caractere (c = continue; q = quitter):\n>>");
+		scanf(" %c", &answer_char);
+
+		switch (answer_char)
+		{
+			case 'q':
+				exit(0);
+			case 'a':
+				printf("Entrer le chiffre entre les crochet \"[]\" de la veleur parent:\n>>");
+				char answer_char_2;
+				scanf(" %c", &answer_char_2);
+				switch (answer_char_2)
+				{
+					case '1':
+						choix[1][1] = !choix[1][1];
+						break;
+					case '2':
+						choix[2][1] = !choix[2][1];
+						break;
+				};
+				break;
+			case 'c':
+				if ((choix[1][0] && choix[1][1]) || (choix[2][0] && choix[2][1])) {
+					condition = 1;
+				} else {
+					printf("Erreur: choisier une matière");
+				};
+				break;
+			case 'i':
+				choix[0][0] = !choix[0][0];
+				choix[0][1] = !choix[0][1];
+				break;
+			case 'n':
+				choix[0][0] = !choix[0][0];
+				choix[0][1] = !choix[0][1];
+				break;
+			case '1':
+				choix[1][0] = !choix[1][0];
+				break;
+			case '2':
+				choix[2][0] = !choix[2][0];
+				break;
+		}
+	}
+}
 
 void gamification(int *score, int *score_max, int *level, int *xp, int nombre_de_question, char mode)
 {
@@ -55,7 +137,7 @@ void gamification(int *score, int *score_max, int *level, int *xp, int nombre_de
 }
 
 void quiz_normal(int choix[2][2], int *score, int *nombre_de_question, cJSON *json, cJSON *Profil_json) {
-	printf("score: %d", *score);
+	printf("score: %d\n", *score);
     int nombre = 0;
     printf("Combien de question?\n>>");
     while(scanf("%d", &nombre) != 1 || nombre < 1)
@@ -120,7 +202,7 @@ void quiz_normal(int choix[2][2], int *score, int *nombre_de_question, cJSON *js
 }
 void quiz_infini(int choix[2][2], int *score, int *nombre_de_question, cJSON *json, cJSON *Profil_json)
 {
-	printf("score: %d", *score);
+	printf("score: %d\n", *score);
     int continu = 1;
     int value = -2;
     while(continu)
