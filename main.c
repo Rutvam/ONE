@@ -1,14 +1,10 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <cjson/cJSON.h>
 #include <time.h>
 #include <string.h>
 #include "./core/json.h"
 #include "./core/funktion.h"
 #include "./core/gestion_des_quiz.h"
-
-
-
 
 int main(int argc, char *argv[])
 {
@@ -20,57 +16,10 @@ int main(int argc, char *argv[])
     recherch(path_Profil_json, sizeof(path_Profil_json), 'P');
     clear();
 
-    char on[20] = "\033[1;32mON\033[0m";
-    char off[21] = "\033[1;31mOFF\033[0m";
-
-    int bouton_english = 0;
-    int bouton_english_verb = 1;
+	int choix[3][2] = {{0, 1}, {0, 1}, {0, 1}};	
+	argv_and_argc_search(argc, argv, choix);
     
-	int bouton_math = 0;
-	int bouton_math_basic = 1;
 
-    int mode_infini = 0;
-    int mode_normal = 1;
-
-    if (argc == 1) {
-        printf("Basic Mode: %s\n", on);
-        printf("Personal Mode: %s\n", off);
-    } else {
-        printf("Basic Mode: %s\n", off);
-        printf("Personal Mode: %s\n", on);
-        for(int i = 1; i < argc; i++)
-        {
-			int j = i + 1;
-            if (!strcmp(argv[i], "English")) {
-                bouton_english = 1;
-                printf("ENGLISH: %s\n", on);
-                if (j < argc && !strcmp(argv[j], "verb")) {
-                	bouton_english_verb = 1;
-                	printf("\tVerb: %s\n", on);
-                	i++;
-                }
-            } else if (!strcmp(argv[i], "math")) {
-                bouton_math = 1;
-                printf("MATH: %s\n", on);
-                if (j < argc && !strcmp(argv[j], "basic")) {
-                    bouton_math_basic = 1;
-                	printf("\tBasic (+ / * -): %s\n", on);
-                }
-            } else if (!strcmp(argv[i], "infini")) {
-                mode_infini = 1;
-                mode_normal = 0;
-                printf("Mode Infini: %s\n", on);
-                printf("Mode Normal: %s\n", off);
-            } else if (!strcmp(argv[i], "normal")) {
-                mode_normal = 1;
-                mode_infini = 0;
-                printf("Mode Normal: %s\n", on);
-                printf("Mode Infini: %s\n", off);
-            } else {
-                printf("Warning: The argument \"%s\" is not recognized.\n", argv[i]);
-            }
-        }
-    }
 
     srand(time(NULL));
     int temp_int;
@@ -125,23 +74,16 @@ int main(int argc, char *argv[])
     }
 
     //Choix de la matiere
-	int choix[3][2] = {{mode_infini, mode_normal}, {bouton_english, bouton_english_verb}, {bouton_math, bouton_math_basic}};	
 	table_des_matiere(choix);
-	mode_infini = choix[0][0];
-	mode_normal = choix[0][1];
-	bouton_english = choix[1][0];
-	bouton_english_verb = choix[1][1];
-	bouton_math = choix[2][0];
-	bouton_math_basic = choix[2][1];
-
+	
 	/*=============*/
 	/* PARTIE QUIZ */
 	/*=============*/
     clear();
     int nombre_de_question = 0;
-    if(!mode_infini && mode_normal){
+    if(!choix[0][0] && choix[0][1]){
 		quiz_normal(choix, &score, &nombre_de_question, json, Profil_json);
-    } else if(mode_infini && !mode_normal){
+    } else if(choix[0][0] && !choix[0][1]){
 		quiz_infini(choix, &score, &nombre_de_question, json, Profil_json);
     }
 
@@ -149,7 +91,7 @@ int main(int argc, char *argv[])
 	/* PRESENTATION DE LA FIN AVEC SAUVEGARDE */
 	/*========================================*/
 	char mode;
-	if (mode_infini) {mode = 'i';}
+	if (choix[0][0]) {mode = 'i';}
 	 else {mode = 'n';};
 	gamification(&score, &score_max, &level, &xp, nombre_de_question, mode);
     

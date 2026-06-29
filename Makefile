@@ -4,8 +4,8 @@ CFLAGS = -Wall -Wextra -O2
 
 # ÉTAPE 1 : On utilise la fonction 'wildcard' pour lister tous les fichiers .c du dossier
 SRC = $(wildcard /home/rutvam55/CODE/ONE/*.c)
-SRC_EN = $(wildcard /home/rutvam55/CODE/ONE/MATIERE/ENGLISH/*.c)
-SRC_M = $(wildcard /home/rutvam55/CODE/ONE/MATIERE/MATH/*.c)
+SRC_EN = $(wildcard /home/rutvam55/CODE/ONE/matiere/langue/*.c)
+SRC_M = $(wildcard /home/rutvam55/CODE/ONE/matiere/math/*.c)
 SRC_core = $(wildcard /home/rutvam55/CODE/ONE/core/*.c)
 
 # La règle principale : on veut créer le fichier '../ONE'

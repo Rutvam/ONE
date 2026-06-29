@@ -3,8 +3,8 @@
 #include <stdlib.h>
 #include "./gestion_des_quiz.h"
 #include "./funktion.h"
-#include "../MATIERE/ENGLISH/english.h"
-#include "../MATIERE/MATH/math.h"
+#include "../matiere/langue/english.h"
+#include "../matiere/math/math.h"
 
 void table_des_matiere(int choix[3][2])
 {

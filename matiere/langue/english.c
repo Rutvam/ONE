@@ -3,6 +3,7 @@
 #include <cjson/cJSON.h>
 #include <string.h>
 #include <time.h>
+#include "english.h"
 
 int question_english(cJSON *json)
 {
@@ -54,6 +55,51 @@ int question_english(cJSON *json)
 
 	} else {
 		printf("Le tableax est vide.\nUtiliser le fichier ./MATIERE/ENGLISH/dataC.py pour remplir le fichier ./MATIERE/ENGLISH/DATA.json facilment.");
+		exit(0);
+	}
+	return 0;
+}
+
+int question_voc(cJSON *json)
+{
+	srand(time(NULL));
+	int size = cJSON_GetArraySize(json);
+	if ( size != 0 ) {
+		int random_int = rand() % size;
+		cJSON *random_voc = cJSON_GetArrayItem(json, random_int);
+
+		size = cJSON_GetArraySize(random_voc);
+		if ( size != 0 ) {
+			random_int = rand() % size;
+			cJSON *random_lang = cJSON_GetArrayItem(random_voc, random_int);
+
+			char *correct = random_lang -> valuestring;
+			char answer[50];
+				
+			printf("Traduit \"%s\" en %s\n>> ", random_voc -> string, random_lang -> string);
+			scanf(" %[^\n]", answer);
+
+			// 1=correct  0=aide -1=faut
+			if (!strcmp(answer, correct)) {
+				printf("\033[1;32mreponse correct\033[0m\n\n");
+				return 1;
+			} else if (!strcmp(answer, "?")) {
+				printf("reponse correct: %s\n\n", correct);
+				return 0;
+			} else if (!strcmp(answer, "Q")) {
+				return 2;
+			} else if (strcmp(answer, correct)) {
+				printf("\033[1;31mreponse correct: %s\033[0m\n\n", correct);
+				return -1;
+			}
+
+		} else {
+			printf("Le vocabulaire ne contient aucune langue.\nVeuillez supprimer le fichier ./data/DATA_voc.json puis utiliser le fichier ./matiere/langue/dataVocC.py pour remplir et recrée le fichier ./matiere/langue/DATA_voc.json facilment.");
+			exit(0);
+		}
+
+	} else {
+		printf("Le tableax est vide.\nUtiliser le fichier ./MATIERE/ENGLISH/dataVocC.py pour remplir le fichier ./MATIERE/ENGLISH/DATA.json facilment.");
 		exit(0);
 	}
 	return 0;
