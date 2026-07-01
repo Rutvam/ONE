@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <string.h>
+#include "struct.h"
 
 void clear()
 {
@@ -7,7 +8,7 @@ void clear()
     fflush(stdout);
 }
 
-void argv_and_argc_search(int argc, char *argv[], int choix[3][2])
+void argv_and_argc_search(int argc, char *argv[], struct Matiere *bouton, struct Mode *mode)
 {
     char on[20] = "\033[1;32mON\033[0m";
     char off[21] = "\033[1;31mOFF\033[0m";
@@ -20,29 +21,45 @@ void argv_and_argc_search(int argc, char *argv[], int choix[3][2])
         for(int i = 1; i < argc; i++)
         {
 			int j = i + 1;
-            if (!strcmp(argv[i], "English")) {
-                choix[1][0] = 1;
-                printf("ENGLISH: %s\n", on);
-                if (j < argc && !strcmp(argv[j], "verb")) {
-                	choix[1][1] = 1;
-                	printf("\tVerb: %s\n", on);
+            if (!strcmp(argv[i], bouton->langue.name)) {
+                bouton->langue.state = 1;
+                printf("%s: %s\n", bouton->langue.name, on);
+                if (j < argc && !strcmp(argv[j], bouton->verb.name)) {
+                	bouton->verb.state = 1;
+                	printf("\t%s: %s\n", bouton->verb.name, on);
                 	i++;
+                } else if (j < argc && !strcmp(argv[j], bouton->voc.name)) {
+                    bouton->voc.state = 1;
+                   	printf("\t%s: %s\n", bouton->voc.name, on);
+       	            i++;
+                } else if (j < argc && !strcmp(argv[j], bouton->english.name)) {
+                    bouton->english.state = 1;
+                   	printf("\t%s: %s\n", bouton->english.name, on);
+       	            i++;
+                } else if (j < argc && !strcmp(argv[j], bouton->francais.name)) {
+                    bouton->francais.state = 1;
+                   	printf("\t%s: %s\n", bouton->francais.name, on);
+       	            i++;
+                } else if (j < argc && !strcmp(argv[j], bouton->deutsch.name)) {
+                    bouton->deutsch.state = 1;
+                   	printf("\t%s: %s\n", bouton->deutsch.name, on);
+       	            i++;
                 }
-            } else if (!strcmp(argv[i], "math")) {
-                choix[2][0] = 1;
-                printf("MATH: %s\n", on);
-                if (j < argc && !strcmp(argv[j], "basic")) {
-                    choix[2][1] = 1;
-                	printf("\tBasic (+ / * -): %s\n", on);
+            } else if (!strcmp(argv[i], bouton->math.name)) {
+                bouton->math.state = 1;
+                printf("%s: %s\n", bouton->math.name, on);
+                if (j < argc && !strcmp(argv[j], bouton->math_basic.name)) {
+                    bouton->math_basic.state = 1;
+                	printf("\t%s: %s\n", bouton->math.name, on);
                 }
             } else if (!strcmp(argv[i], "infini")) {
-                choix[0][0] = 1;
-                choix[0][1] = 0;
+                mode->infini.state = 1;
+                mode->normal.state = 0;
                 printf("Mode Infini: %s\n", on);
                 printf("Mode Normal: %s\n", off);
             } else if (!strcmp(argv[i], "normal")) {
-                choix[0][1] = 1;
-                choix[0][0] = 0;
+                mode->infini.state = 0;
+                mode->normal.state = 1;
                 printf("Mode Normal: %s\n", on);
                 printf("Mode Infini: %s\n", off);
             } else {
